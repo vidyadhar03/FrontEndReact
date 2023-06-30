@@ -1,0 +1,26 @@
+.product-description-page {
+    display: flex;
+  }
+  
+  .product-image {
+    flex: 1;
+  }
+  
+  .product-details {
+    flex: 1;
+  }
+  
+  @media screen and (max-width: 767px) {
+    .product-description-page {
+      flex-direction: column;
+    }
+    
+    .product-image {
+      order: 1;
+    }
+    
+    .product-details {
+      order: 2;
+    }
+  }
+  
