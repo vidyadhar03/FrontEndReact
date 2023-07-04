@@ -10,17 +10,17 @@
     flex: 1;
   }
   
-  @media screen and (max-width: 767px) {
-    .product-description-page {
-      flex-direction: column;
-    }
-    
-    .product-image {
-      order: 1;
-    }
-    
-    .product-details {
-      order: 2;
-    }
+@media screen and (max-width: 767px) {
+  .product-description-page {
+    flex-direction: column;
   }
+  
+  .product-image {
+    order: 1;
+  }
+  
+  .product-details {
+    order: 2;
+  }
+}
   
