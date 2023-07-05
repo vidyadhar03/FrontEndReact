@@ -11,11 +11,11 @@ const ToolbarComponent = () => {
     };
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: '#001f3f' }}>
+        <AppBar position="static" sx={{ backgroundColor: 'black' }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
                 <Link to={'/'} style={linkStyles}>
                     <Typography variant="h6" component="div" >
-                        Title here
+                        Trippy Tree
                     </Typography>
                 </Link>
                 <div>
