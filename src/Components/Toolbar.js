@@ -1,5 +1,6 @@
-import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
-import { ShoppingCart, AccountCircle } from '@mui/icons-material';
+// import { AppBar, Toolbar, IconButton, Typography, Container } from '@mui/material';
+import { IconButton, Container } from '@mui/material';
+import { ShoppingCart, AccountCircle, Image } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 const ToolbarComponent = () => {
@@ -11,28 +12,28 @@ const ToolbarComponent = () => {
     };
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: 'black' }}>
-            <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Container style={{display:'flex',justifyContent:'space-between'}}>
+            <div>
                 <Link to={'/'} style={linkStyles}>
-                    <Typography variant="h6" component="div" >
+                    {/* <Typography variant="h6" component="div">
                         Trippy Tree
-                    </Typography>
+                    </Typography> */}
+                    <img src="logo192.png" alt="Trippy Tree" style={{ width: '100%', height: '70px', objectFit: 'cover' }}/>
                 </Link>
-                <div>
-                    <Link to={'/cart'} style={linkStyles}>
-                        <IconButton color="inherit">
-                            <ShoppingCart />
-                        </IconButton>
-                    </Link>
-                    <Link to={'/authentication'} style={linkStyles}>
+            </div>
+            <div style={{alignItems:'center'}}>
+                <Link to={'/cart'} style={linkStyles}>
+                    <IconButton color="inherit">
+                        <ShoppingCart />
+                    </IconButton>
+                </Link>
+                <Link to={'/authentication'} style={linkStyles}>
                     <IconButton color="inherit">
                         <AccountCircle />
                     </IconButton>
-                    </Link>
-                
-                </div>
-            </Toolbar>
-        </AppBar>
+                </Link>
+            </div>
+        </Container>
     );
 };
 

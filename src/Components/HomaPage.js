@@ -3,62 +3,19 @@ import { Link } from "react-router-dom";
 
 const HomaPage = ({ response }) => {
 
-    const shopByCategorySectionnew = () => {
-
-        const categories = Object.values(response.Categories);
-
-        const paperStyles = {
-            padding: 2,
-            margin: 2,
-            alignItems: 'center',
-            textAlign: 'center',
-            boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.15)',
-        };
-
-        const linkStyles = {
-            textDecoration: 'none',
-            color: 'inherit',
-            outline: 'none',
-        };
-
-        return (
-            <Container sx={{ marginTop: 4 }}>
-                <Typography variant="h6" component="h2" align="center" gutterBottom>
-                    Shop by Category
-                </Typography>
-                <Grid container sx={{ justifyContent: "center" }}>
-                    {categories.map((category, index) => (
-                        <Grid item key={index}>
-                            <Link to={`/category/${category.title}`} key={index} style={linkStyles}>
-                            <Paper sx={paperStyles}>
-                                <img src={category.image} alt={category.title} style={{ width: '100%', height: '100px', objectFit: 'cover' }} />
-                                <Typography variant="subtitle1" component="div" style={{ marginTop: 8, fontSize: '14px', fontWeight: 'bold' }}>
-                                    {category.title}
-                                </Typography>
-                            </Paper>
-                            </Link>
-                        </Grid>
-                    ))}
-                </Grid>
-            </Container>
-        );
-
-
-    };
-
-
     const exploreProductsSectionnew = () => {
         const products = Object.values(response.Products);
 
         const paperStyles = {
-            margin: 2,
-            padding: 2,
+            margin: 1,
+            padding: 1,
             minWidth: 200,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             textAlign: 'center',
-            boxShadow: '0px 2px 10px rgba(0, 0, 0, 0.15)',
+            boxShadow: '0px 2px 10px rgba(0, 0, 0, 0)',
+            backgroundColor: '#F5F0FF',
         };
 
         const linkStyles = {
@@ -71,10 +28,10 @@ const HomaPage = ({ response }) => {
             <Container maxWidth="lg" sx={{
                 marginTop: 4
             }}>
-                <Typography variant="h6" component="h2" align="center" gutterBottom >
+                <Typography variant="h6" component="h2" align="left" gutterBottom >
                     Explore our famous products
                 </Typography>
-                <Grid container spacing={2} sx={{ overflowX: 'scroll' }}>
+                <Grid container  sx={{ overflowX: 'scroll' }}>
                     <Grid item sx={{ display: 'flex', flexWrap: 'nowrap' }}>
                         {products.map((product, index) => (
                             <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
@@ -90,6 +47,50 @@ const HomaPage = ({ response }) => {
                 </Grid>
             </Container>
         );
+    };
+
+    const shopByCategorySectionnew = () => {
+
+        const categories = Object.values(response.Categories);
+
+        const paperStyles = {
+            padding: 2,
+            margin: 2,
+            alignItems: 'center',
+            textAlign: 'center',
+            boxShadow: '0px 2px 10px rgba(0, 0, 0, 0)',
+            backgroundColor: '#F5F0FF',
+        };
+
+        const linkStyles = {
+            textDecoration: 'none',
+            color: 'inherit',
+            outline: 'none',
+        };
+
+        return (
+            <Container sx={{ marginTop: 4 }}>
+                <Typography variant="h6" component="h2" align="left" gutterBottom>
+                    Shop by Category
+                </Typography>
+                <Grid container sx={{ justifyContent: "center" }}>
+                    {categories.map((category, index) => (
+                        <Grid item key={index}>
+                            <Link to={`/category/${category.title}`} key={index} style={linkStyles}>
+                            <Paper sx={paperStyles} style={{margin:6,alignItems:"center",textAlign:"center",padding:2}}>
+                                <img src={category.image} alt={category.title} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
+                                <Typography variant="subtitle1" component="div" style={{ marginTop: 8, fontSize: '14px', fontWeight: 'normal' }}>
+                                    {category.title}
+                                </Typography>
+                            </Paper>
+                            </Link>
+                        </Grid>
+                    ))}
+                </Grid>
+            </Container>
+        );
+
+
     };
 
     return (
