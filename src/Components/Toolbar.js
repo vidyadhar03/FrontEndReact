@@ -1,6 +1,6 @@
 // import { AppBar, Toolbar, IconButton, Typography, Container } from '@mui/material';
-import { IconButton, Container } from '@mui/material';
-import { ShoppingCart, AccountCircle, Image } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
+import { ShoppingCart, AccountCircle } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 const ToolbarComponent = () => {
@@ -12,7 +12,7 @@ const ToolbarComponent = () => {
     };
 
     return (
-        <Container style={{display:'flex',justifyContent:'space-between'}}>
+        <div style={{display:'flex',justifyContent:'space-between'}}>
             <div>
                 <Link to={'/'} style={linkStyles}>
                     {/* <Typography variant="h6" component="div">
@@ -21,7 +21,7 @@ const ToolbarComponent = () => {
                     <img src="logo192.png" alt="Trippy Tree" style={{ width: '100%', height: '70px', objectFit: 'cover' }}/>
                 </Link>
             </div>
-            <div style={{alignItems:'center'}}>
+            <div style={{alignItems:'center',display:'flex'}}>
                 <Link to={'/cart'} style={linkStyles}>
                     <IconButton color="inherit">
                         <ShoppingCart />
@@ -33,7 +33,7 @@ const ToolbarComponent = () => {
                     </IconButton>
                 </Link>
             </div>
-        </Container>
+        </div>
     );
 };
 

@@ -1,4 +1,4 @@
-import { Container, Typography, Grid, Paper } from "@mui/material";
+import {  Typography, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const HomaPage = ({ response }) => {
@@ -25,10 +25,10 @@ const HomaPage = ({ response }) => {
         };
 
         return (
-            <Container maxWidth="lg" sx={{
+            <div maxWidth="lg" sx={{
                 marginTop: 4
             }}>
-                <Typography variant="h6" component="h2" align="left" gutterBottom >
+                <Typography variant="h6" component="h2" align="left" gutterBottom sx={{margin:2}}>
                     Explore our famous products
                 </Typography>
                 <Grid container  sx={{ overflowX: 'scroll' }}>
@@ -45,7 +45,7 @@ const HomaPage = ({ response }) => {
                         ))}
                     </Grid>
                 </Grid>
-            </Container>
+            </div>
         );
     };
 
@@ -69,8 +69,8 @@ const HomaPage = ({ response }) => {
         };
 
         return (
-            <Container sx={{ marginTop: 4 }}>
-                <Typography variant="h6" component="h2" align="left" gutterBottom>
+            <div sx={{ marginTop: 4 }}>
+                <Typography variant="h6" component="h2" align="left" gutterBottom sx={{margin:2}}>
                     Shop by Category
                 </Typography>
                 <Grid container sx={{ justifyContent: "center" }}>
@@ -87,7 +87,7 @@ const HomaPage = ({ response }) => {
                         </Grid>
                     ))}
                 </Grid>
-            </Container>
+            </div>
         );
 
 

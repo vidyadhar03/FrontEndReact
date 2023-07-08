@@ -8,6 +8,7 @@ import CartPage from './Components/Cart';
 import Footer from './Components/Footer';
 import AuthenticationPage from './Components/Authentication';
 import CategoryWiseProducts from './Components/CategoryWiseProducts';
+import UserProfile from './Components/UserDetails';
 
 
 
@@ -151,14 +152,15 @@ const App = () => {
 
   return (
     <Router>
-      <div>
+      <div style={{padding:8}}>
         <ToolbarComponent />
         <Routes>
           <Route path="/" element={<HomaPage response={response} />} />
           <Route path="/product/:productId" element={<ProductDescriptionPage response={response} />} />
           <Route path="/category/:title" element={<CategoryWiseProducts response={response} />}/>
-          <Route path="/cart" element={<CartPage />} />
+          <Route path="/cart" element={<CartPage response={response} />} />
           <Route path="/authentication" element={<AuthenticationPage/>}/>
+          <Route path="/userprofile" element={<UserProfile/>}/>
         </Routes>
         {<Footer />}
       </div>
