@@ -40,7 +40,6 @@ const AuthenticationPage = () => {
           component="h2"
           align="left"
           gutterBottom
-          sx={{ borderBottom: "1px solid #ccc" }}
         >
           Sign Up
         </Typography>
@@ -68,7 +67,7 @@ const AuthenticationPage = () => {
             />
           </div>
 
-          <Button type="submit">Sign Up</Button>
+          <Button type="submit" variant="contained" sx={{marginTop:'20px',marginBottom:'20px'}}>Sign Up</Button>
 
           <Typography variant="caption">
           Already have an account? <Link to="/login">Login</Link>

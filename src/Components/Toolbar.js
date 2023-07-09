@@ -12,7 +12,7 @@ const ToolbarComponent = () => {
     };
 
     return (
-        <div style={{display:'flex',justifyContent:'space-between'}}>
+        <div style={{display:'flex',justifyContent:'space-between',marginBottom:'10px'}}>
             <div>
                 <Link to={'/'} style={linkStyles}>
                     {/* <Typography variant="h6" component="div">

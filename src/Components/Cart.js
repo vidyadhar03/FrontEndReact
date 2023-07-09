@@ -37,7 +37,7 @@ const CartPage = ({ response }) => {
                     align="left"
                     gutterBottom
                 >
-                    Added Items
+                    Your Cart
                 </Typography>
 
                 <Grid container sx={{ justifyContent: "center",display:"flex",flexDirection:"column"}}>
@@ -60,10 +60,12 @@ const CartPage = ({ response }) => {
 
             </div>
 
+            <div style={{border: "1px solid #ccc",margin:'30px',borderColor:'black'}}/>
+
             <div style={{display:"flex",flexDirection:"column",flex:1,justifyContent:"center",textAlign:"center"}}>
                 <h3>Sub Total : {price}</h3>
                 <div>delivery charges or any available offers related information will be shown here at this layout</div>
-                <Button sx={{margin:'20px'}}>Checkout</Button>
+                <Button sx={{margin:'20px'}} variant="contained">Checkout</Button>
             </div>
 
         </div>

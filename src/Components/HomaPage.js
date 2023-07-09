@@ -1,4 +1,4 @@
-import {  Typography, Grid, Paper } from "@mui/material";
+import { Typography, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const HomaPage = ({ response }) => {
@@ -25,13 +25,13 @@ const HomaPage = ({ response }) => {
         };
 
         return (
-            <div maxWidth="lg" sx={{
+            <div sx={{
                 marginTop: 4
             }}>
-                <Typography variant="h6" component="h2" align="left" gutterBottom sx={{margin:2}}>
+                <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     Explore our famous products
                 </Typography>
-                <Grid container  sx={{ overflowX: 'scroll' }}>
+                <Grid container sx={{ overflowX: 'scroll' }}>
                     <Grid item sx={{ display: 'flex', flexWrap: 'nowrap' }}>
                         {products.map((product, index) => (
                             <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
@@ -70,19 +70,19 @@ const HomaPage = ({ response }) => {
 
         return (
             <div sx={{ marginTop: 4 }}>
-                <Typography variant="h6" component="h2" align="left" gutterBottom sx={{margin:2}}>
+                <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     Shop by Category
                 </Typography>
                 <Grid container sx={{ justifyContent: "center" }}>
                     {categories.map((category, index) => (
                         <Grid item key={index}>
                             <Link to={`/category/${category.title}`} key={index} style={linkStyles}>
-                            <Paper sx={paperStyles} style={{margin:6,alignItems:"center",textAlign:"center",padding:2}}>
-                                <img src={category.image} alt={category.title} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
-                                <Typography variant="subtitle1" component="div" style={{ marginTop: 8, fontSize: '14px', fontWeight: 'normal' }}>
-                                    {category.title}
-                                </Typography>
-                            </Paper>
+                                <Paper sx={paperStyles} style={{ margin: 6, alignItems: "center", textAlign: "center", padding: 2 }}>
+                                    <img src={category.image} alt={category.title} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
+                                    <Typography variant="subtitle1" component="div" style={{ marginTop: 8, fontSize: '14px', fontWeight: 'normal' }}>
+                                        {category.title}
+                                    </Typography>
+                                </Paper>
                             </Link>
                         </Grid>
                     ))}
