@@ -25,9 +25,7 @@ const HomaPage = ({ response }) => {
         };
 
         return (
-            <div sx={{
-                marginTop: 4
-            }}>
+            <div>
                 <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     Explore our famous products
                 </Typography>

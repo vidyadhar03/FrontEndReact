@@ -9,6 +9,7 @@ import Footer from './Components/Footer';
 import AuthenticationPage from './Components/Authentication';
 import CategoryWiseProducts from './Components/CategoryWiseProducts';
 import UserProfile from './Components/UserDetails';
+import CheckoutPage from './Components/CheckoutPage';
 
 
 
@@ -22,7 +23,7 @@ const App = () => {
     },
     "Products": {
       "product1": {
-        "category": "Psychedelic Lights",
+        "category": "Psychedelic Decor",
         "count": 45,
         "description": "Illuminate your space with mesmerizing lights",
         "famous": true,
@@ -44,7 +45,7 @@ const App = () => {
         "info": "Step into a world of mind-bending fashion with our psychedelic apparel collection. These uniquely designed garments feature intricate patterns and vibrant colors that will make you stand out in any crowd. Express your trippy style with these eye-catching pieces!"
       },
       "product3": {
-        "category": "Psychedelic Lights",
+        "category": "Psychedelic Posters",
         "count": 45,
         "description": "Vibrant and colorful shirts for a psychedelic look",
         "famous": true,
@@ -66,7 +67,7 @@ const App = () => {
         "info": "Challenge your mind with our enigmatic collection of mind games. These trippy puzzles and brain teasers will take you on a journey of cognitive exploration. Unleash your inner genius and unravel the mysteries hidden within!"
       },
       "product5": {
-        "category": "Psychedelic Lights",
+        "category": "Enigmatic Mind Games",
         "count": 45,
         "description": "Decorate your walls with mesmerizing posters",
         "famous": true,
@@ -88,7 +89,7 @@ const App = () => {
         "info": "Elevate your space with our collection of psychedelic decor. From mesmerizing tapestries to trippy wall hangings, each piece is a masterpiece of psychedelic artistry. Immerse yourself in a realm of visual ecstasy with these mind-expanding decorations!"
       },
       "product7": {
-        "category": "Psychedelic Lights",
+        "category": "Psychedelic Posters",
         "count": 45,
         "description": "Transform your space with mesmerizing lights",
         "famous": true,
@@ -162,6 +163,7 @@ const App = () => {
           <Route path="/cart" element={<CartPage response={response} />} />
           <Route path="/authentication" element={<AuthenticationPage/>}/>
           <Route path="/userprofile" element={<UserProfile/>}/>
+          <Route path="/checkout" element={<CheckoutPage/>}/>
         </Routes>
         {<Footer />}
       </div>

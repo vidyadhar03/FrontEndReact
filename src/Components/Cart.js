@@ -25,11 +25,10 @@ const CartPage = ({ response }) => {
     };
 
 
-
     return (
         <div className="main-layout">
 
-            <div style={{display:"flex",flexDirection:"column",flex:1}}>
+            <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
 
                 <Typography
                     variant="h6"
@@ -40,14 +39,14 @@ const CartPage = ({ response }) => {
                     Your Cart
                 </Typography>
 
-                <Grid container sx={{ justifyContent: "center",display:"flex",flexDirection:"column"}}>
+                <Grid container sx={{ justifyContent: "center", display: "flex", flexDirection: "column" }}>
                     {products.map((product, index) => (
-                        <Grid item key={index} sx={{borderBottom: "1px solid #ccc"}}>
+                        <Grid item key={index} sx={{ borderBottom: "1px solid #ccc" }}>
                             <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
                                 <Paper sx={paperStyles}>
 
                                     <img src={product.image} alt={product.title} style={{ width: '80px', height: '80px' }} />
-                                    <div style={{marginLeft:'40px',display:"flex",flexDirection:"column",justifyContent:"center",textAlign:"center"}}>
+                                    <div style={{ marginLeft: '40px', display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center" }}>
                                         <div>{product.title}</div>
                                         <div>{product.price}</div>
                                     </div>
@@ -60,12 +59,14 @@ const CartPage = ({ response }) => {
 
             </div>
 
-            <div style={{border: "1px solid #ccc",margin:'30px',borderColor:'black'}}/>
+            <div style={{ border: "1px solid #ccc", margin: '30px', borderColor: 'black' }} />
 
-            <div style={{display:"flex",flexDirection:"column",flex:1,justifyContent:"center",textAlign:"center"}}>
+            <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "center", textAlign: "center" }}>
                 <h3>Sub Total : {price}</h3>
                 <div>delivery charges or any available offers related information will be shown here at this layout</div>
-                <Button sx={{margin:'20px'}} variant="contained">Checkout</Button>
+                <Link to={`/checkout`} style={linkStyles}>
+                    <Button sx={{ margin: '20px' }} variant="contained">Checkout</Button>
+                </Link>
             </div>
 
         </div>

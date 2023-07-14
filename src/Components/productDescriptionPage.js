@@ -57,8 +57,8 @@ const ProductDescriptionPage = ({ response }) => {
 
       </div>
 
-      <div style={{marginTop:'40px'}}>
-        
+      <div style={{ marginTop: '40px' }}>
+
         <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
           Suggested products
         </Typography>
@@ -68,7 +68,9 @@ const ProductDescriptionPage = ({ response }) => {
             {samecat_prod.map((product, index) => (
               <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
                 <Paper key={index} sx={paperStyles}>
-                  <img src={product.image} alt={product.title} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  <div>
+                    <img src={product.image} alt={product.title} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
+                  </div>
                   <div style={{ fontSize: '18px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
                   <div style={{ marginBottom: '10px' }}>{product.price}</div>
                   <div>{product.description}</div>
