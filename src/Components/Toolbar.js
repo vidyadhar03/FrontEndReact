@@ -12,8 +12,8 @@ const ToolbarComponent = () => {
     };
 
     return (
-        <div style={{display:'flex',justifyContent:'space-between',marginBottom:'10px'}}>
-            <div>
+        <div style={{display:'flex',justifyContent:'space-between',backgroundColor:'transparent',position:'absolute',zIndex:'9999',width:'100%'}}>
+            <div style={{margin:'10px'}}>
                 <Link to={'/'} style={linkStyles}>
                     {/* <Typography variant="h6" component="div">
                         Trippy Tree
@@ -21,14 +21,14 @@ const ToolbarComponent = () => {
                     <img src="logo192.png" alt="Trippy Tree" style={{ width: '100%', height: '70px', objectFit: 'cover' }}/>
                 </Link>
             </div>
-            <div style={{alignItems:'center',display:'flex'}}>
+            <div style={{alignItems:'center',display:'flex',margin:'10px'}}>
                 <Link to={'/cart'} style={linkStyles}>
-                    <IconButton color="inherit">
+                    <IconButton color="white">
                         <ShoppingCart />
                     </IconButton>
                 </Link>
                 <Link to={'/authentication'} style={linkStyles}>
-                    <IconButton color="inherit">
+                    <IconButton color="white">
                         <AccountCircle />
                     </IconButton>
                 </Link>

@@ -26,6 +26,9 @@ const HomaPage = ({ response }) => {
 
         return (
             <div>
+                <div >
+                    <img src={"https://picsum.photos/230"} alt={'banner'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
                 <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     Explore our famous products
                 </Typography>

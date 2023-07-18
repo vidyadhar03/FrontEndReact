@@ -113,37 +113,37 @@ const App = () => {
     },
     "Categories": {
       "category1": {
-        "banner": "String",
+        "banner": "https://picsum.photos/208",
         "description": "Step into the world of psychedelic fashion",
         "image": "https://picsum.photos/208",
         "title": "Psychedelic Apparel"
       },
       "category2": {
-        "banner": "String",
+        "banner": "https://picsum.photos/209",
         "description": "Challenge your mind with enigmatic mind games",
         "image": "https://picsum.photos/209",
         "title": "Enigmatic Mind Games"
       },
       "category3": {
-        "banner": "String",
+        "banner": "https://picsum.photos/210",
         "description": "Surround yourself with mystical psychedelic decor",
         "image": "https://picsum.photos/210",
         "title": "Psychedelic Decor"
       },
       "category4": {
-        "banner": "String",
+        "banner": "https://picsum.photos/211",
         "description": "Transform your space with mesmerizing lights",
         "image": "https://picsum.photos/211",
         "title": "Psychedelic Lights"
       },
       "category5": {
-        "banner": "String",
+        "banner": "https://picsum.photos/212",
         "description": "Indulge in the surreal beauty of psychedelic art",
         "image": "https://picsum.photos/212",
         "title": "Psychedelic Posters"
       },
       "category6": {
-        "banner": "String",
+        "banner": "https://picsum.photos/213",
         "description": "Explore a realm of trippy imagination with psychedelic accessories",
         "image": "https://picsum.photos/213",
         "title": "Psychedelic Accessories"
@@ -154,7 +154,7 @@ const App = () => {
   
   return (
     <Router>
-      <div style={{padding:8}}>
+      <div>
         <ToolbarComponent />
         <Routes>
           <Route path="/" element={<HomaPage response={response} />} />
