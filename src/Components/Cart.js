@@ -35,6 +35,7 @@ const CartPage = ({ response }) => {
                         component="h2"
                         align="left"
                         gutterBottom
+                        sx={{margin:2}}
                     >
                         Your Cart
                     </Typography>
