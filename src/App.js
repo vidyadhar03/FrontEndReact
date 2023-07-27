@@ -6,13 +6,10 @@ import ToolbarComponent from './Components/Toolbar';
 import HomaPage from './Components/HomaPage';
 import CartPage from './Components/Cart';
 import Footer from './Components/Footer';
-import AuthenticationPage from './Components/Authentication';
+import Authentication from './Components/Authentication';
 import CategoryWiseProducts from './Components/CategoryWiseProducts';
 import UserProfile from './Components/UserDetails';
 import CheckoutPage from './Components/CheckoutPage';
-
-
-
 
 const App = () => {
 
@@ -189,8 +186,6 @@ const App = () => {
     }
   };
   
-  
-  
   return (
     <Router>
       <div>
@@ -200,7 +195,7 @@ const App = () => {
           <Route path="/product/:productId" element={<ProductDescriptionPage response={response} />} />
           <Route path="/category/:title" element={<CategoryWiseProducts response={response} />}/>
           <Route path="/cart" element={<CartPage response={response} />} />
-          <Route path="/authentication" element={<AuthenticationPage/>}/>
+          <Route path="/authentication" element={<Authentication/>}/>
           <Route path="/userprofile" element={<UserProfile/>}/>
           <Route path="/checkout" element={<CheckoutPage/>}/>
         </Routes>
@@ -210,6 +205,7 @@ const App = () => {
   );
 
 };
+
 
 
 export default App;

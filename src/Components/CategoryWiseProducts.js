@@ -122,7 +122,7 @@ const CategoryWiseProducts = ({ response }) => {
         <div>
             <div>
                 <div >
-                    <img src={banner} alt={'banner'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={banner} alt={'banner'} style={{ width: '100%', height: '550px', objectFit: 'cover' }} />
                 </div>
                 {productList()}
             </div>

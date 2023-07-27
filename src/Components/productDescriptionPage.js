@@ -6,9 +6,6 @@ import { Link } from "react-router-dom";
 
 const ProductDescriptionPage = ({ response }) => {
   const { productId } = useParams();
-
-  console.log(productId)
-
   const products = Object.values(response.Products);
   const product = products.find((product) => product.productID === productId);
   const samecat_prod = []
