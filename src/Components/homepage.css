@@ -84,27 +84,29 @@
     object-fit: cover;
   }
 
-    .herostuff-container {
-        display: flex;
-        flex-direction: column;
-    }
+  .herostuff-container {
+      display: flex;
+      flex-direction: column;
+  }
 
-    .herostuff-left{
-        width: 100%;
-        justify-content: center;
-        text-align: center;
-    }
+  .herostuff-left{
+      width: 100%;
+      justify-content: center;
+      text-align: center;
+  }
 
-    .herostuff-right{
-        width: 100%;
-        margin: 0px;
-    }
+  .herostuff-right{
+      width: 100%;
+      margin: 0px;
+  }
 
-    .image-container-left {
-        position: relative;
-        width: 100%; 
-        height: 400px; 
-        overflow: hidden;
-      }
+.image-container-left {
+    position: relative;
+    width: 100%; 
+    height: 400px; 
+    overflow: hidden;
+  }
+
+  
 
 }

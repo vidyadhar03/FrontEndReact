@@ -7,7 +7,13 @@ import { Link } from "react-router-dom";
 const ProductDescriptionPage = ({ response }) => {
   const { productId } = useParams();
   const products = Object.values(response.Products);
-  const product = products.find((product) => product.productID === productId);
+
+  const { Hero_stuff: heroStuffData } = response;
+  const heroProd = heroStuffData.hero_prod;
+  products.push(heroProd)
+
+  var product = products.find((product) => product.productID === productId);
+
   const samecat_prod = []
   for (var i = 0; i < products.length; i++) {
     if (products[i].productID !== product.productID && products[i].category === product.category) {
@@ -65,12 +71,17 @@ const ProductDescriptionPage = ({ response }) => {
             {samecat_prod.map((product, index) => (
               <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
                 <Paper key={index} sx={paperStyles}>
-                  <div>
+                  {/* <div>
                     <img src={product.image} alt={product.title} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
                   </div>
                   <div style={{ fontSize: '18px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
                   <div style={{ marginBottom: '10px' }}>{product.price}</div>
-                  <div>{product.description}</div>
+                  <div>{product.description}</div> */}
+
+                  <img src={product.image} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
+                  <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
+                  <div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div>
+                  <div style={{ fontSize: '16px' }}>{product.description}</div>
                 </Paper>
               </Link>
             ))}

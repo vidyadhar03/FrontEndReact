@@ -4,40 +4,60 @@ import './homepage.css'
 
 const HomaPage = ({ response }) => {
 
+    const linkStyles = {
+        textDecoration: 'none',
+        color: 'inherit',
+        outline: 'none',
+    };
+
     const heroStuff = () => {
+
+        const { Hero_stuff: heroStuffData } = response;
+        const heroProd = heroStuffData.hero_prod;
+        const heroprodID = heroProd.productID;
+        const heroCategories = heroStuffData.hero_categories;
+        const { hero_cat1: hero_cat1 } = heroCategories;
+        const { hero_cat2: hero_cat2 } = heroCategories;
+
         return (
             <div className="herostuff-container">
                 <div className="herostuff-left">
                     <div className="image-container-left">
-                        <img
-                            className="background-image"
-                            src={'https://picsum.photos/235'} alt={"Trippy Board Game"}
-                        />
-                        <div className="overlay">
-                            <p className="centered-text">Personlaised Board Game</p>
-                            <button className="centered-button">Shop Now</button>
-                        </div>
+                        <Link to={`/product/${heroprodID}`} style={linkStyles}>
+                            <img
+                                className="background-image"
+                                src={heroProd.image} alt={heroProd.title}
+                            />
+                            <div className="overlay">
+                                <p className="centered-text">{heroProd.title}</p>
+                                <button className="centered-button">Shop Now</button>
+                            </div>
+                        </Link>
                     </div>
                 </div>
                 <div className="herostuff-right">
-                    <div className="image-container-right">
-                        <img
-                            className="background-image"
-                            src={'https://picsum.photos/236'} alt={"Trippy Board Game"}
-                        />
-                        <div className="overlay">
-                            <p className="centered-text">Trippy Tees</p>
+                    <Link to={`/category/${hero_cat1.title}`} style={linkStyles}>
+                        <div className="image-container-right">
+                            <img
+                                className="background-image"
+                                src={hero_cat1.image} alt={hero_cat1.title}
+                            />
+                            <div className="overlay">
+                                <p className="centered-text">{hero_cat1.title}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div className="image-container-right">
-                        <img
-                            className="background-image"
-                            src={'https://picsum.photos/237'} alt={"Trippy Board Game"}
-                        />
-                        <div className="overlay">
-                            <p className="centered-text">Lights for the space</p>
+                    </Link>
+                    <Link to={`/category/${hero_cat2.title}`} style={linkStyles}>
+                        <div className="image-container-right">
+                            <img
+                                className="background-image"
+                                src={hero_cat2.image} alt={hero_cat2.title}
+                            />
+                            <div className="overlay">
+                                <p className="centered-text">{hero_cat2.title}</p>
+                            </div>
                         </div>
-                    </div>
+                    </Link>
                 </div>
             </div>
         );
@@ -58,15 +78,9 @@ const HomaPage = ({ response }) => {
             backgroundColor: '#F5F0FF',
         };
 
-        const linkStyles = {
-            textDecoration: 'none',
-            color: 'inherit',
-            outline: 'none',
-        };
-
         return (
             <div>
-                <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
+                <Typography variant="h5" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     Explore our famous products
                 </Typography>
                 <Grid container sx={{ overflowX: 'scroll' }}>
@@ -74,10 +88,10 @@ const HomaPage = ({ response }) => {
                         {products.map((product, index) => (
                             <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
                                 <Paper key={index} sx={paperStyles}>
-                                    <img src={product.image} alt={product.title} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
-                                    <div style={{ fontSize: '18px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
-                                    <div style={{ marginBottom: '10px' }}>{product.price}</div>
-                                    <div>{product.description}</div>
+                                    <img src={product.image} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
+                                    <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
+                                    <div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div>
+                                    <div style={{ fontSize: '16px' }}>{product.description}</div>
                                 </Paper>
                             </Link>
                         ))}
@@ -100,15 +114,9 @@ const HomaPage = ({ response }) => {
             backgroundColor: '#F5F0FF',
         };
 
-        const linkStyles = {
-            textDecoration: 'none',
-            color: 'inherit',
-            outline: 'none',
-        };
-
         return (
             <div sx={{ marginTop: 4 }}>
-                <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
+                <Typography variant="h5" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     Shop by Category
                 </Typography>
                 <Grid container sx={{ justifyContent: "center" }}>

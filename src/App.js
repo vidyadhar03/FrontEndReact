@@ -42,7 +42,7 @@ const App = () => {
         "info": "Step into a world of mind-bending fashion with our psychedelic apparel collection. These uniquely designed garments feature intricate patterns and vibrant colors that will make you stand out in any crowd. Express your trippy style with these eye-catching pieces!"
       },
       "product3": {
-        "category": "Psychedelic Lights",
+        "category": "Hero Category one",
         "count": 55,
         "description": "Challenge your mind with mind-bending puzzles",
         "famous": false,
@@ -183,6 +183,33 @@ const App = () => {
         "title": "Psychedelic Lights"
       },
       // Add more categories here...
+    },
+    "Hero_stuff":{
+      "hero_prod": {
+        "category": "Hero Category one",
+        "count": 45,
+        "description": "Illuminate your space with mesmerizing lights",
+        "famous": true,
+        "image": "https://picsum.photos/235",
+        "price": "650",
+        "productID": "prod16",
+        "title": "Personalised Board Game",
+        "info": "Create an otherworldly ambiance with these mesmerizing psychedelic lights. very nucely designed for your comfort The shifting patterns and vibrant colors will transport you to a trippy realm of visual delight. Perfect for parties, meditation, or simply elevating your space!"
+      },
+      "hero_categories":{
+        "hero_cat1": {
+          "banner": "https://picsum.photos/236",
+          "description": "Step into the world of psychedelic fashion",
+          "image": "https://picsum.photos/236",
+          "title": "Hero Category one"
+        },
+        "hero_cat2": {
+          "banner": "https://picsum.photos/237",
+          "description": "Challenge your mind with enigmatic mind games",
+          "image": "https://picsum.photos/237",
+          "title": "Hero Category two"
+        },
+      }
     }
   };
   
