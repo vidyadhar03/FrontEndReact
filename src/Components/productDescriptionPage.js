@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './PDP.css';
 import { Button, Typography, Grid, Paper } from "@mui/material";
@@ -13,6 +13,12 @@ const ProductDescriptionPage = ({ response }) => {
   products.push(heroProd)
 
   var product = products.find((product) => product.productID === productId);
+
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantityChange = (newQuantity) => {
+    setQuantity(newQuantity);
+  };
 
   const samecat_prod = []
   for (var i = 0; i < products.length; i++) {
@@ -39,9 +45,47 @@ const ProductDescriptionPage = ({ response }) => {
     outline: 'none',
   };
 
-  return (
-    <div>
+  const LineWithOr = () => {
+    return (
+      <div className="line-with-or-container">
+        <div className="line"></div>
+        <div className="or">OR</div>
+        <div className="line"></div>
+      </div>
+    );
+  };
 
+  const QuantitySelector = ({ quantity, onQuantityChange }) => {
+
+    const handleIncrement = () => {
+      onQuantityChange(quantity + 1);
+    };
+
+    const handleDecrement = () => {
+      if (quantity > 1) {
+        onQuantityChange(quantity - 1);
+      }
+    };
+
+    const handleInputChange = (event) => {
+      const newQuantity = parseInt(event.target.value);
+      if (!isNaN(newQuantity)) {
+        onQuantityChange(newQuantity);
+      }
+    };
+
+    return (
+      <div style={{marginBottom:'20px'}}>
+        <button onClick={handleDecrement} style={{width:'30px'}} >-</button>
+        <input type="number" min="1" value={quantity} onChange={handleInputChange} style={{width:'30px'}} />
+        <button onClick={handleIncrement} style={{width:'30px'}}  >+</button>
+      </div>
+    );
+
+  }
+
+  const productContent = () => {
+    return (
       <div className='product-content'>
 
         <div className='product-img'>
@@ -51,15 +95,22 @@ const ProductDescriptionPage = ({ response }) => {
         <div className='product-details'>
 
           <h2>{product.title}</h2>
-          <h4>{product.price} Rs.</h4>
-          <Button sx={{ color: 'white', marginBottom: '20px' }} variant='contained'>Add To Cart</Button>
+          <h3><div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div></h3>
+          <QuantitySelector quantity={quantity} onQuantityChange={handleQuantityChange} />
+          <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained'>Add To Cart</Button>
+          {LineWithOr()}
+          <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained'>Buy Now</Button>
           <div>{product.info}</div>
 
 
         </div>
 
       </div>
+    );
+  }
 
+  const suggestedProducts = () => {
+    return (
       <div style={{ marginTop: '40px' }}>
 
         <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
@@ -71,13 +122,6 @@ const ProductDescriptionPage = ({ response }) => {
             {samecat_prod.map((product, index) => (
               <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
                 <Paper key={index} sx={paperStyles}>
-                  {/* <div>
-                    <img src={product.image} alt={product.title} style={{ width: '100%', height: '200px', objectFit: 'cover' }} />
-                  </div>
-                  <div style={{ fontSize: '18px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
-                  <div style={{ marginBottom: '10px' }}>{product.price}</div>
-                  <div>{product.description}</div> */}
-
                   <img src={product.image} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
                   <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
                   <div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div>
@@ -89,7 +133,13 @@ const ProductDescriptionPage = ({ response }) => {
         </Grid>
 
       </div>
+    );
+  }
 
+  return (
+    <div>
+      {productContent()}
+      {suggestedProducts()}
     </div>
   );
 

@@ -60,7 +60,7 @@ const CartPage = ({ response }) => {
 
                 </div>
 
-                <div style={{ border: "1px solid #ccc", margin: '30px', borderColor: 'black' }} />
+                {/* <div style={{ border: "1px solid #ccc", margin: '30px', borderColor: 'black' }} /> */}
 
                 <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "center", textAlign: "center" }}>
                     <h3>Sub Total : {price}</h3>

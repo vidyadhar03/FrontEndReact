@@ -14,9 +14,9 @@ import CheckoutPage from './Components/CheckoutPage';
 const App = () => {
 
   const response = {
-    "Website_description": {
-      "description": "String",
-      "imageURL": "String"
+    "Banner": {
+      "description": "This is website description written over here",
+      "imageURL": "https://picsum.photos/230"
     },
     "Products": {
       "product1": {

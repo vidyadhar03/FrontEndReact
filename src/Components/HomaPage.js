@@ -4,11 +4,28 @@ import './homepage.css'
 
 const HomaPage = ({ response }) => {
 
+
+
     const linkStyles = {
         textDecoration: 'none',
         color: 'inherit',
         outline: 'none',
     };
+
+    const banner = () => {
+        const { Banner: banner } = response;
+        return (
+            <div className="banner-container">
+                <img
+                    className="background-image"
+                    src={banner.imageURL} alt={'Trippy Tree'}
+                />
+                <div className="overlay">
+                    <p className="centered-text">{banner.description}</p>
+                </div>
+            </div>
+        );
+    }
 
     const heroStuff = () => {
 
@@ -141,9 +158,7 @@ const HomaPage = ({ response }) => {
 
     return (
         <div>
-            <div>
-                <img src={"https://picsum.photos/230"} alt={'banner'} className="top-banner" />
-            </div>
+            {banner()}
             {heroStuff()}
             {exploreProductsSectionnew()}
             {shopByCategorySectionnew()}

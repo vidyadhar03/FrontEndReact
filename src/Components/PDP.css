@@ -22,6 +22,27 @@
     padding: 12px;
   }
   
+  .line-with-or-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    justify-content: center; 
+    margin-bottom: 10px;
+  }
+  
+  .line {
+    flex: 1;
+    height: 0.5px;
+    background-color: #ccc;
+  }
+  
+  .or {
+    padding: 0 10px;
+    color: #ccc;
+    font-weight: bold;
+  }
+
+  
 @media screen and (max-width: 767px) {
   .product-content {
     display: flex;
