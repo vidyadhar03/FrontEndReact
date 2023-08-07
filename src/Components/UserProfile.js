@@ -1,16 +1,23 @@
 import { Container, Typography } from "@mui/material";
 import React from "react";
+import { useLocation } from "react-router-dom";
 import "./UserProfile.css";
 
 const UserProfile = () => {
 
-    const email = "vidyadhariitkgp@gmail.com"
+    // const location = useLocation();
+    // const userInfo = location.state?.userInfo;
+
+    var userInfo = localStorage.getItem('userId');
+    console.log("printing from here",userInfo)
+
+    const email = localStorage.getItem('userEmail');
     const phone = "7478022333"
     const address = "Viman Nagar,Pune-411014"
 
     return (
         <div className="user-profile">
-            <Container>
+            <Container sx={{marginTop:'100px'}}>
                 <Typography
                     variant="h6"
                     component="h2"
@@ -18,7 +25,7 @@ const UserProfile = () => {
                     gutterBottom
                     sx={{ borderBottom: "1px solid #ccc" }}
                 >
-                    Vidyadhar Gowd
+                    Display Name
                 </Typography>
                 <div className="details-container">
                     <div className="details-section">

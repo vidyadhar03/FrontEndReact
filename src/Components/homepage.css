@@ -83,6 +83,11 @@
   font-size: 28px;
 }
 
+.shop-category-img{
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
 
 /* Media query for screens larger than 990px */
 @media (max-width: 990px) {
@@ -121,6 +126,12 @@
     width: 100%;
     height: 550px;
     overflow: hidden;
+  }
+
+  .shop-category-img{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
   }
 
 }

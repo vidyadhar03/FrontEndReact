@@ -141,7 +141,7 @@ const HomaPage = ({ response }) => {
                         <Grid item key={index}>
                             <Link to={`/category/${category.title}`} key={index} style={linkStyles}>
                                 <Paper sx={paperStyles} style={{ margin: 6, alignItems: "center", textAlign: "center", padding: 2 }}>
-                                    <img src={category.image} alt={category.title} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
+                                    <img src={category.image} alt={category.title} className="shop-category-img" />
                                     <Typography variant="subtitle1" component="div" style={{ marginTop: 8, fontSize: '14px', fontWeight: 'normal' }}>
                                         {category.title}
                                     </Typography>

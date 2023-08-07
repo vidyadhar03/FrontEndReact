@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { TextField, Typography, Button } from "@mui/material";
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+//input related material imports
+import { TextField, Typography, Button, IconButton, InputAdornment } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material"; // Import icons
+import { useNavigate } from "react-router-dom";
 
 //firebase configuration details
 const firebaseConfig = {
@@ -20,19 +24,22 @@ const auth = getAuth(app);
 
 const Authentication = () => {
   const [isSignUp, setIsSignUp] = useState(true);
-  const [email, setEmail] = useState(""); // State for email input
-  const [password, setPassword] = useState(""); // State for password input
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMode = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
   };
 
   const signUpUser = () => {
-    console.log("signing up user");
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        localStorage.setItem('userId', user.uid);
+        localStorage.setItem('userEmail', user.email);
+        navigate("/userprofile");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -45,7 +52,9 @@ const Authentication = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        localStorage.setItem('userId', user.uid);
+        localStorage.setItem('userEmail', user.email);
+        navigate("/userprofile");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -68,13 +77,27 @@ const Authentication = () => {
           onChange={(e) => setEmail(e.target.value)} // Update email state on change
         />
         <TextField
-          id="outlined-basic"
+          id="outlined-adornment-password"
+          type={showPassword ? "text" : "password"} // Show password if showPassword is true
           label="Password"
           variant="outlined"
           sx={{ margin: "4px", width: "100%" }}
-          value={password} // Bind the value to password state
-          onChange={(e) => setPassword(e.target.value)} // Update password state on change
-        />
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          InputProps={{
+            // Add an eye icon button to toggle password visibility
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }} />
         <Button variant="contained" sx={{ margin: "4px", width: "100%" }} onClick={isSignUp ? signUpUser : signInUser}>
           {isSignUp ? "Sign Up" : "Sign In"}
         </Button>

@@ -8,7 +8,7 @@ import CartPage from './Components/Cart';
 import Footer from './Components/Footer';
 import Authentication from './Components/Authentication';
 import CategoryWiseProducts from './Components/CategoryWiseProducts';
-import UserProfile from './Components/UserDetails';
+import UserProfile from './Components/UserProfile';
 import CheckoutPage from './Components/CheckoutPage';
 
 const App = () => {
