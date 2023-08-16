@@ -5,9 +5,45 @@ import "./Cart.css";
 const CartPage = ({ response }) => {
 
 
-    const price = "100 rs"
-
+    const cartResponse = [
+        {
+            "prod_id": "prod4",
+            "count": 2
+        },
+        {
+            "prod_id": "prod2",
+            "count": 1
+        },
+        {
+            "prod_id": "prod3",
+            "count": 3
+        },
+        {
+            "prod_id": "prod1",
+            "count": 1
+        },
+        {
+            "prod_id": "prod5",
+            "count": 2
+        }
+    ];
     const products = Object.values(response.Products);
+    var finalProducts=[]
+    var prodCartCount=[]
+    var price = parseInt(0)
+
+
+    for(const mproduct in products){
+        for(const cproduct in cartResponse){
+            if(products[mproduct].productID===cartResponse[cproduct].prod_id){
+                finalProducts.push(products[mproduct])
+                prodCartCount.push(cartResponse[cproduct].count)
+                price+=parseInt(products[mproduct].price)
+            }
+        }
+    }
+
+    console.log("printing from cart",finalProducts)
 
     const linkStyles = {
         textDecoration: 'none',
@@ -41,7 +77,7 @@ const CartPage = ({ response }) => {
                     </Typography>
 
                     <Grid container sx={{ justifyContent: "center", display: "flex", flexDirection: "column" }}>
-                        {products.map((product, index) => (
+                        {finalProducts.map((product, index) => (
                             <Grid item key={index} sx={{ borderBottom: "1px solid #ccc" }}>
                                 <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
                                     <Paper sx={paperStyles}>
