@@ -9,7 +9,7 @@ const UserProfile = () => {
     // const userInfo = location.state?.userInfo;
 
     var userInfo = localStorage.getItem('userId');
-    console.log("printing from here",userInfo)
+    // console.log("printing from here",userInfo)
 
     const email = localStorage.getItem('userEmail');
     const phone = "7478022333"
