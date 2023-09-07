@@ -5,6 +5,15 @@ import './homepage.css'
 const HomaPage = ({ response }) => {
 
 
+    if (!response) {
+        // Render a loading indicator or return null
+        return (
+            <div style={{ width:"100%",height:"200px",padding: "100px", justifyContent: "center", alignItems: "center" }}>
+                <h3>Loading...</h3>
+            </div>);
+    }
+
+
 
     const linkStyles = {
         textDecoration: 'none',
@@ -33,8 +42,6 @@ const HomaPage = ({ response }) => {
         const heroProd = heroStuffData.hero_prod;
         const heroprodID = heroProd.productID;
         const heroCategories = heroStuffData.hero_categories;
-        const { hero_cat1: hero_cat1 } = heroCategories;
-        const { hero_cat2: hero_cat2 } = heroCategories;
 
         return (
             <div className="herostuff-container">
@@ -53,25 +60,25 @@ const HomaPage = ({ response }) => {
                     </div>
                 </div>
                 <div className="herostuff-right">
-                    <Link to={`/category/${hero_cat1.title}`} style={linkStyles}>
+                    <Link to={`/category/${heroCategories.hero_cat1.title}`} style={linkStyles}>
                         <div className="image-container-right">
                             <img
                                 className="background-image"
-                                src={hero_cat1.image} alt={hero_cat1.title}
+                                src={heroCategories.hero_cat1.image} alt={heroCategories.hero_cat1.title}
                             />
                             <div className="overlay">
-                                <p className="centered-text">{hero_cat1.title}</p>
+                                <p className="centered-text">{heroCategories.hero_cat1.title}</p>
                             </div>
                         </div>
                     </Link>
-                    <Link to={`/category/${hero_cat2.title}`} style={linkStyles}>
+                    <Link to={`/category/${heroCategories.hero_cat2.title}`} style={linkStyles}>
                         <div className="image-container-right">
                             <img
                                 className="background-image"
-                                src={hero_cat2.image} alt={hero_cat2.title}
+                                src={heroCategories.hero_cat2.image} alt={heroCategories.hero_cat2.title}
                             />
                             <div className="overlay">
-                                <p className="centered-text">{hero_cat2.title}</p>
+                                <p className="centered-text">{heroCategories.hero_cat2.title}</p>
                             </div>
                         </div>
                     </Link>
