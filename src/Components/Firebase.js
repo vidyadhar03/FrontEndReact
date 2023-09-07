@@ -4,15 +4,14 @@ import { getAuth} from 'firebase/auth';
 import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAYBksSTtveR7M8d0JBF6pVcl-GgNMP0oE",
-    authDomain: "serioustesting-91ba8.firebaseapp.com",
-    databaseURL: "https://serioustesting-91ba8-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "serioustesting-91ba8",
-    storageBucket: "serioustesting-91ba8.appspot.com",
-    messagingSenderId: "838645691893",
-    appId: "1:838645691893:web:b317d5e44a289500345cbc",
-    measurementId: "G-NHZKXHRWMX"
-  };
+  apiKey: "AIzaSyAPKHgROZVadGceaHMCslCYoOjeUC5nfB4",
+  authDomain: "trippytree-a4793.firebaseapp.com",
+  projectId: "trippytree-a4793",
+  storageBucket: "trippytree-a4793.appspot.com",
+  messagingSenderId: "516017858679",
+  appId: "1:516017858679:web:0ce4791ce994ebf2f3be72",
+  measurementId: "G-Z2NBHZVF1M"
+};
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
