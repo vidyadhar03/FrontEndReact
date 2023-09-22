@@ -1,12 +1,33 @@
 import { useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from './Firebase';
+import { auth, db } from './Firebase';
+import { ref, set } from "firebase/database";
 
 //input related material imports
 import { TextField, Typography, Button, IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material"; // Import icons
 import { useNavigate } from "react-router-dom";
 
+
+const userObject = {
+  userId: "",
+  cart_objects: [],
+  orders: [],
+  profile: {
+    name: "",
+    email: "",
+    phone: "",
+    address:"",
+  },
+};
+
+const cartObject = {
+  prodId: "",
+  count: "",
+  price: "",
+};
+
+// const orderedProd = {
 
 const Authentication = () => {
   const [isSignUp, setIsSignUp] = useState(true);
@@ -22,10 +43,38 @@ const Authentication = () => {
   const signUpUser = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        localStorage.setItem('userId', user.uid);
-        localStorage.setItem('userEmail', user.email);
+
+        const RandomUserObject = {
+          userId: userCredential.user.uid,
+          cart_objects: [],
+          orders: [],
+          profile: {
+            name: "Anonymous user doing good",
+            address: "Thuraipakkam, Chennai-41104, Tamil Nadu,india",
+            email: userCredential.user.email,
+            phone: "+917478022333",
+          },
+        };
+
+        const RandomCartObject = {
+          prodId: "prod664",
+          count: "8",
+          price: "4500",
+        };
+
+        const newCartObject = { ...cartObject, ...RandomCartObject };
+
+        RandomUserObject.cart_objects.push(newCartObject)
+
+        const newUserObject = { ...userObject, ...RandomUserObject };
+
+        console.log("new user copied", newUserObject);
+
+
+        set(ref(db, 'Users/' + userCredential.user.uid),newUserObject);
+
         navigate("/userprofile");
+
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -37,9 +86,6 @@ const Authentication = () => {
   const signInUser = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        localStorage.setItem('userId', user.uid);
-        localStorage.setItem('userEmail', user.email);
         navigate("/userprofile");
       })
       .catch((error) => {

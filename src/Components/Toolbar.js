@@ -2,6 +2,7 @@
 import { IconButton } from '@mui/material';
 import { ShoppingCart, AccountCircle } from '@mui/icons-material';
 import { Link,useNavigate } from 'react-router-dom';
+import { auth } from './Firebase';
 
 const ToolbarComponent = () => {
 
@@ -13,8 +14,8 @@ const ToolbarComponent = () => {
     const navigate = useNavigate();
 
     const handleAuth = () => {
-        var userId = localStorage.getItem('userId');
-        if (userId !== null) {
+        var user = auth.currentUser;
+        if (user !== null) {
             navigate("/userprofile");
         } else {
             navigate("/authentication");
