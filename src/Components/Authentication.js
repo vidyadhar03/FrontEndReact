@@ -17,7 +17,7 @@ const userObject = {
     name: "",
     email: "",
     phone: "",
-    address:"",
+    address: "",
   },
 };
 
@@ -49,7 +49,7 @@ const Authentication = () => {
           cart_objects: [],
           orders: [],
           profile: {
-            name: "Anonymous user doing good",
+            name: null,
             address: "Thuraipakkam, Chennai-41104, Tamil Nadu,india",
             email: userCredential.user.email,
             phone: "+917478022333",
@@ -71,7 +71,7 @@ const Authentication = () => {
         console.log("new user copied", newUserObject);
 
 
-        set(ref(db, 'Users/' + userCredential.user.uid),newUserObject);
+        set(ref(db, 'Users/' + userCredential.user.uid), newUserObject);
 
         navigate("/userprofile");
 
@@ -93,6 +93,10 @@ const Authentication = () => {
         const errorMessage = error.message;
         console.log(errorMessage, errorCode);
       });
+  };
+
+  const restPassword = () => {
+    navigate("/ResetPassword")
   };
 
   return (
@@ -130,6 +134,9 @@ const Authentication = () => {
               </InputAdornment>
             ),
           }} />
+        <div style={{ fontSize: "10px", margin: "4px", cursor: "pointer", textAlign: "end", width: "100%", flexDirection: "column" }} onClick={restPassword}>
+          Forgot Password?
+        </div>
         <Button variant="contained" sx={{ margin: "4px", width: "100%" }} onClick={isSignUp ? signUpUser : signInUser}>
           {isSignUp ? "Sign Up" : "Sign In"}
         </Button>

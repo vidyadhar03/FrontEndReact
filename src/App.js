@@ -10,6 +10,8 @@ import Authentication from './Components/Authentication';
 import CategoryWiseProducts from './Components/CategoryWiseProducts';
 import UserProfile from './Components/UserProfile';
 import CheckoutPage from './Components/CheckoutPage';
+import EditProfile from './Components/EditProfile';
+import ResetPassword from './Components/ResetPassword';
 import { db } from './Components/Firebase';
 import { ref, onValue } from "firebase/database";
 
@@ -48,6 +50,8 @@ const App = () => {
           <Route path="/authentication" element={<Authentication />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/editprofile" element={<EditProfile/>}/>
+          <Route path="/resetpassword" element={<ResetPassword/>}/>
         </Routes>
         {<Footer />}
       </div>

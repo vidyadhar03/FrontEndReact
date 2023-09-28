@@ -9,23 +9,25 @@ const CartPage = ({ response }) => {
 
     useEffect(() => {
 
-        //getting user cart objects from DB
-        const userRef = ref(db, 'Users/' + auth.currentUser.uid);
+        if (auth.currentUser) {
+            //getting user cart objects from DB
+            const userRef = ref(db, 'Users/' + auth.currentUser.uid);
 
-        const unsubscribe = onValue(userRef, (snapshot) => {
-            const userData = snapshot.val();
-            if (userData) {
-                const cartObjects = userData.cart_objects || [];
-                console.log('User Cart Objects:', cartObjects);
-            } else {
-                console.log('User not found.');
+            const unsubscribe = onValue(userRef, (snapshot) => {
+                const userData = snapshot.val();
+                if (userData) {
+                    const cartObjects = userData.cart_objects || [];
+                    console.log('User Cart Objects:', cartObjects);
+                } else {
+                    console.log('User not found.');
+                }
+            }, {
+                onlyOnce: true
+            });
+
+            return () => {
+                unsubscribe();
             }
-        }, {
-            onlyOnce: true
-        });
-
-        return () => {
-            unsubscribe();
         }
 
     }, []);
