@@ -42,6 +42,7 @@ const CartPage = ({ response }) => {
         } else {
             // User is not authenticated, fetch cart objects from local storage
             const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+            console.log("printing debug",storedCart)
             setCartObjects(storedCart);
         }
 
@@ -151,7 +152,7 @@ const CartPage = ({ response }) => {
 
     return (
         <div className="main-layout">
-            {cartObjects.length === 1 ? (
+            {cartObjects.length === 0 ? (
                 <div style={{marginTop:"100px",display:"flex",flexDirection:"column",textAlign:"center",alignContent:"center"}}>
                     <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                         Your Cart is Empty

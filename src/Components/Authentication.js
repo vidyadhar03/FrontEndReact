@@ -55,15 +55,6 @@ const Authentication = () => {
           },
         };
 
-        const RandomCartObject = {
-          prodId: "prod1",
-          count: "8"
-        };
-
-        const newCartObject = { ...cartObject, ...RandomCartObject };
-
-        RandomUserObject.cart_objects.push(newCartObject)
-
         const newUserObject = { ...userObject, ...RandomUserObject };
 
         console.log("new user copied", newUserObject);
