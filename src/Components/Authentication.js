@@ -24,7 +24,6 @@ const userObject = {
 const cartObject = {
   prodId: "",
   count: "",
-  price: "",
 };
 
 // const orderedProd = {
@@ -57,9 +56,8 @@ const Authentication = () => {
         };
 
         const RandomCartObject = {
-          prodId: "prod664",
-          count: "8",
-          price: "4500",
+          prodId: "prod1",
+          count: "8"
         };
 
         const newCartObject = { ...cartObject, ...RandomCartObject };

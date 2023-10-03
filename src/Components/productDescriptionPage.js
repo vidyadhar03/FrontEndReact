@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import './PDP.css';
 import { Button, Typography, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
+import QuantitySelector from "./QuantitySelector";
+import { addToCart } from "./CartHandler";
 
 const ProductDescriptionPage = ({ response }) => {
   const { productId } = useParams();
@@ -55,34 +57,9 @@ const ProductDescriptionPage = ({ response }) => {
     );
   };
 
-  const QuantitySelector = ({ quantity, onQuantityChange }) => {
-
-    const handleIncrement = () => {
-      onQuantityChange(quantity + 1);
-    };
-
-    const handleDecrement = () => {
-      if (quantity > 1) {
-        onQuantityChange(quantity - 1);
-      }
-    };
-
-    const handleInputChange = (event) => {
-      const newQuantity = parseInt(event.target.value);
-      if (!isNaN(newQuantity)) {
-        onQuantityChange(newQuantity);
-      }
-    };
-
-    return (
-      <div style={{marginBottom:'20px'}}>
-        <button onClick={handleDecrement} style={{width:'30px'}} >-</button>
-        <input type="number" min="1" value={quantity} onChange={handleInputChange} style={{width:'30px'}} />
-        <button onClick={handleIncrement} style={{width:'30px'}}  >+</button>
-      </div>
-    );
-
-  }
+  const handleAddToCart = () => {
+    addToCart(product.productID, quantity);
+  };
 
   const productContent = () => {
     return (
@@ -96,8 +73,8 @@ const ProductDescriptionPage = ({ response }) => {
 
           <h2>{product.title}</h2>
           <h3><div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div></h3>
-          <QuantitySelector quantity={quantity} onQuantityChange={handleQuantityChange} />
-          <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained'>Add To Cart</Button>
+          <QuantitySelector quantity={quantity} onQuantityChange={handleQuantityChange} productId={product.productID}/>
+          <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained' onClick={handleAddToCart}>Add To Cart</Button>
           {LineWithOr()}
           <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained'>Buy Now</Button>
           <div>{product.info}</div>
