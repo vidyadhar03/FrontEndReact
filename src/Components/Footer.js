@@ -9,7 +9,7 @@ const Footer = () => {
         justifyContent: 'space-around',
         alignItems: 'center',
         flexWrap: 'wrap',
-        marginTop:'80px'
+        marginTop:'80px',
     };
 
     const sectionStyles = {

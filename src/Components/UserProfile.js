@@ -109,7 +109,7 @@ const UserProfile = () => {
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "20px " }}>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                    <Button variant="contained" sx={{ margin: "4px", width: "100%" }} onClick={signOutUser}>
+                    <Button variant="contained" sx={{ margin: "4px", width: "100%" ,marginBottom:"200px"}} onClick={signOutUser}>
                         {"Sign Out"}
                     </Button>
                 </div>

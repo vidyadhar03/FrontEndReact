@@ -1,7 +1,7 @@
 import { db, auth } from "./Firebase";
 import { ref, update, get } from "firebase/database";
 
-export async function addToCart(productId, quantity) {
+export async function addToCart(productId, quantity,callback) {
   try {
     const user = auth.currentUser;
 
@@ -53,6 +53,11 @@ export async function addToCart(productId, quantity) {
       localStorage.setItem("cart", JSON.stringify(storedCart));
       console.log("Item added/updated in local cart.");
     }
+
+    if (callback) {
+      callback();
+    }
+    
   } catch (error) {
     console.error("Error adding/updating item in the cart:", error);
   }

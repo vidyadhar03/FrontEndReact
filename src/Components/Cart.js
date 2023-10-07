@@ -5,6 +5,7 @@ import { db, auth } from "./Firebase";
 import { ref, update, get, onValue } from "firebase/database";
 import { useState, useEffect } from "react";
 import QuantitySelector from "./QuantitySelector";
+import Loader from "./Loader";
 
 const CartPage = ({ response }) => {
 
@@ -16,6 +17,15 @@ const CartPage = ({ response }) => {
     const navigate = useNavigate();
     var finalProducts = []
     var prodCartCount = []
+
+    //loader
+    const [isLoading, setIsLoading] = useState(false);
+    const enableLoader = () => {
+        setIsLoading(true);
+    };
+    const disableLoader = () => {
+        setIsLoading(false);
+    };
 
     useEffect(() => {
         const user = auth.currentUser;
@@ -42,7 +52,7 @@ const CartPage = ({ response }) => {
         } else {
             // User is not authenticated, fetch cart objects from local storage
             const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-            console.log("printing debug",storedCart)
+            console.log("printing debug", storedCart)
             setCartObjects(storedCart);
         }
 
@@ -92,6 +102,7 @@ const CartPage = ({ response }) => {
     const handleRemoveFromCart = async (productId) => {
         // Handle removing the item from the cart
         try {
+            enableLoader()
             const user = auth.currentUser;
             if (user) {
                 const userId = user.uid;
@@ -103,6 +114,7 @@ const CartPage = ({ response }) => {
                     const updatedCartObjects = cartObjects.filter(item => item.prodId !== productId);
                     await update(userRef, { cart_objects: updatedCartObjects });
                     console.log("Item removed from the cart.");
+                    disableLoader()
                 }
             } else {
                 // User is not authenticated, remove the item from local storage
@@ -110,12 +122,14 @@ const CartPage = ({ response }) => {
                 const updatedCart = storedCart.filter(item => item.prodId !== productId);
                 localStorage.setItem("cart", JSON.stringify(updatedCart));
                 console.log("Item removed from local cart.");
+                disableLoader()
             }
 
             // Update the cart objects displayed in the UI
             setCartObjects(prevCart => prevCart.filter(item => item.prodId !== productId));
         } catch (error) {
             console.error("Error removing item from the cart:", error);
+            disableLoader()
         }
     };
 
@@ -124,6 +138,7 @@ const CartPage = ({ response }) => {
         const productIndex = cartObjects.findIndex(item => item.prodId === productId);
 
         if (productIndex !== -1) {
+            enableLoader()
             // Clone the cartObjects array to avoid modifying the state directly
             const updatedCart = [...cartObjects];
 
@@ -136,15 +151,18 @@ const CartPage = ({ response }) => {
             // Update the cart in local storage if the user is not authenticated
             if (!auth.currentUser) {
                 localStorage.setItem('cart', JSON.stringify(updatedCart));
+                disableLoader()
             } else {
                 // Update the cart in the database if the user is authenticated
                 const userRef = ref(db, `Users/${auth.currentUser.uid}`);
                 update(userRef, { cart_objects: updatedCart })
                     .then(() => {
                         console.log("Item quantity updated in the cart.");
+                        disableLoader()
                     })
                     .catch((error) => {
                         console.error("Error updating item quantity in the cart:", error);
+                        disableLoader()
                     });
             }
         }
@@ -153,15 +171,16 @@ const CartPage = ({ response }) => {
     return (
         <div className="main-layout">
             {cartObjects.length === 0 ? (
-                <div style={{marginTop:"100px",display:"flex",flexDirection:"column",textAlign:"center",alignContent:"center"}}>
+                <div style={{ marginTop: "100px", display: "flex", flexDirection: "column", textAlign: "center", alignContent: "center" }}>
                     <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                         Your Cart is Empty
                     </Typography>
                     <p>Add items to checkout from here!</p>
                 </div>
             ) : (
-                <div>
-                    <div style={{ display: "flex", flexDirection: "column", flex: 1, marginTop: "100px" }}>
+                <>
+                    <div className="cart-list" style={{ display: "flex", flexDirection: "column", flex: 1, marginTop: "100px" }}>
+                    {isLoading && <Loader />}
                         <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                             Your Cart
                         </Typography>
@@ -207,7 +226,7 @@ const CartPage = ({ response }) => {
                             ))}
                         </Grid>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column", flex: 1, justifyContent: "center", textAlign: "center" }}>
+                    <div className="subtotal-section" style={{ flex: 1}}>
                         <h3>Sub Total : {totalPrice}</h3>
                         <div>delivery charges or any available offers related information will be shown here at this layout</div>
                         <Link to={`/checkout`} style={linkStyles}>
@@ -216,7 +235,7 @@ const CartPage = ({ response }) => {
                             </Button>
                         </Link>
                     </div>
-                </div>
+                </>
             )}
         </div>
     );

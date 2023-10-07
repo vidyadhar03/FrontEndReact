@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from './Firebase';
 import { ref, set } from "firebase/database";
+import Loader from "./Loader";
 
 //input related material imports
 import { TextField, Typography, Button, IconButton, InputAdornment } from "@mui/material";
@@ -21,10 +22,10 @@ const userObject = {
   },
 };
 
-const cartObject = {
-  prodId: "",
-  count: "",
-};
+// const cartObject = {
+//   prodId: "",
+//   count: "",
+// };
 
 // const orderedProd = {
 
@@ -35,11 +36,22 @@ const Authentication = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  //loader
+  const [isLoading, setIsLoading] = useState(false);
+  const enableLoader = () => {
+    setIsLoading(true);
+  };
+  const disableLoader = () => {
+    setIsLoading(false);
+  };
+
+
   const toggleMode = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
   };
 
   const signUpUser = () => {
+    enableLoader()
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
 
@@ -62,6 +74,8 @@ const Authentication = () => {
 
         set(ref(db, 'Users/' + userCredential.user.uid), newUserObject);
 
+        disableLoader()
+
         navigate("/userprofile");
 
       })
@@ -73,8 +87,10 @@ const Authentication = () => {
   };
 
   const signInUser = () => {
+    enableLoader()
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        disableLoader()
         navigate("/userprofile");
       })
       .catch((error) => {
@@ -90,6 +106,9 @@ const Authentication = () => {
 
   return (
     <div style={{ display: "flex", padding: "30px", flexDirection: "column", alignItems: "center" }}>
+      
+      {isLoading && <Loader />}
+
       <Typography style={{ marginTop: "100px", fontSize: "18px" }}>{isSignUp ? "Sign Up" : "Sign In"}</Typography>
 
       <div style={{ display: "flex", flexDirection: "column", marginTop: "20px", alignItems: "center" }}>

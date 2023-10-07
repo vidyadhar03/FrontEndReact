@@ -1,4 +1,4 @@
-import React, { useEffect ,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import ProductDescriptionPage from './Components/productDescriptionPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -23,13 +23,14 @@ const App = () => {
   useEffect(() => {
 
     // Fetching data from Firebase using onValue
-
     const unsubscribe = onValue(ref(db), (snapshot) => {
       const data = snapshot.val();
       setResponse(data);
-    }, {
+    }
+    , {
       onlyOnce: true
-    });
+    }
+    );
 
     // Cleaning up the subscription when the component unmounts
     return () => {
@@ -50,8 +51,8 @@ const App = () => {
           <Route path="/authentication" element={<Authentication />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/editprofile" element={<EditProfile/>}/>
-          <Route path="/resetpassword" element={<ResetPassword/>}/>
+          <Route path="/editprofile" element={<EditProfile />} />
+          <Route path="/resetpassword" element={<ResetPassword />} />
         </Routes>
         {<Footer />}
       </div>

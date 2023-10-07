@@ -2,11 +2,28 @@
 .main-layout {
     display: flex;
     flex-direction: column;
+    margin-bottom: 200px;
+    }
+
+.cart-list{
+    flex: 1;  /* This ensures that each section takes equal width on desktop */
+}
+
+.subtotal-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;  /* Vertically centers the content */
+    align-items: center;      /* Horizontally centers the content */
+    text-align: center;
 }
 
 @media (min-width: 768px) {
     .main-layout{
-        display: flex;
+        /* display: flex; */
         flex-direction: row;
+    }
+
+    .subtotal-section {
+        margin-top: 100px;
     }
 }

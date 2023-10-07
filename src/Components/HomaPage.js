@@ -1,19 +1,18 @@
 import { Typography, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 import './homepage.css'
+import Loader from "./Loader";
 
 const HomaPage = ({ response }) => {
-
 
     if (!response) {
         // Render a loading indicator or return null
         return (
-            <div style={{ width:"100%",height:"200px",padding: "100px", justifyContent: "center", alignItems: "center" }}>
-                <h3>Loading...</h3>
-            </div>);
+            <div style={{ width: "100%", height: "1200px", justifyContent: "center", alignItems: "center",position:"relative" }}>
+                <Loader />
+            </div>
+        )
     }
-
-
 
     const linkStyles = {
         textDecoration: 'none',

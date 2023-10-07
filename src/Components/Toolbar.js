@@ -23,7 +23,7 @@ const ToolbarComponent = () => {
     }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: 'transparent', position: 'absolute', zIndex: '9999', width: '100%' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: 'transparent',position:'absolute', zIndex: '9999', width: '100%' }}>
             <div style={{ margin: '10px' }}>
                 <Link to={'/'} style={linkStyles}>
                     {/* <Typography variant="h6" component="div">

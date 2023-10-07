@@ -5,8 +5,19 @@ import { Button, Typography, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 import QuantitySelector from "./QuantitySelector";
 import { addToCart } from "./CartHandler";
+import Loader from './Loader';
 
 const ProductDescriptionPage = ({ response }) => {
+
+  //loader
+  const [isLoading, setIsLoading] = useState(false);
+  const enableLoader = () => {
+    setIsLoading(true);
+  };
+  const disableLoader = () => {
+    setIsLoading(false);
+  };
+
   const { productId } = useParams();
   const products = Object.values(response.Products);
 
@@ -58,12 +69,19 @@ const ProductDescriptionPage = ({ response }) => {
   };
 
   const handleAddToCart = () => {
-    addToCart(product.productID, quantity);
+    enableLoader()
+    addToCart(product.productID, quantity, () => {
+      // This callback will be called when the item is added to the cart.
+      // You can disable the loader here.
+      disableLoader();
+    });
   };
 
   const productContent = () => {
     return (
       <div className='product-content'>
+
+        {isLoading && <Loader />}
 
         <div className='product-img'>
           <img src={product.image} alt={product.title} style={{ objectFit: "cover" }} />
@@ -73,7 +91,7 @@ const ProductDescriptionPage = ({ response }) => {
 
           <h2>{product.title}</h2>
           <h3><div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div></h3>
-          <QuantitySelector quantity={quantity} onQuantityChange={handleQuantityChange} productId={product.productID}/>
+          <QuantitySelector quantity={quantity} onQuantityChange={handleQuantityChange} productId={product.productID} />
           <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained' onClick={handleAddToCart}>Add To Cart</Button>
           {LineWithOr()}
           <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained'>Buy Now</Button>
