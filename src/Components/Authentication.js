@@ -60,10 +60,10 @@ const Authentication = () => {
           cart_objects: [],
           orders: [],
           profile: {
-            name: null,
+            name: "",
             address: "Thuraipakkam, Chennai-41104, Tamil Nadu,india",
             email: userCredential.user.email,
-            phone: "+917478022333",
+            phone: "",
           },
         };
 
@@ -83,6 +83,7 @@ const Authentication = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage, errorCode);
+        disableLoader()
       });
   };
 
@@ -97,6 +98,7 @@ const Authentication = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage, errorCode);
+        disableLoader()
       });
   };
 

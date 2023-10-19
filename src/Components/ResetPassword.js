@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from './Firebase';
-import { TextField, Button, Typography, Container } from "@mui/material";
+import { TextField, Button, Typography } from "@mui/material";
 
 const ResetPassword = () => {
 

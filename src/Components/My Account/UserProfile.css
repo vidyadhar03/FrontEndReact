@@ -1,0 +1,49 @@
+.mainContainer {
+  display: flex;
+}
+
+.headingBox{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar {
+  width: 20%;
+  padding: 1em;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarButton {
+  margin-bottom: 10px;
+  padding: 4px;
+}
+
+.contentArea {
+  width: 80%;
+  padding: 1em;
+}
+
+
+
+/* Mobile Layout */
+@media (max-width: 768px) {
+  .mainContainer {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 90%;
+    border-right: none;
+  }
+
+  .contentArea {
+    width: 100%;
+  }
+}
