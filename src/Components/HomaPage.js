@@ -1,10 +1,18 @@
 import { Typography, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 import './homepage.css'
+import Loader from "./Loader";
 
 const HomaPage = ({ response }) => {
 
-
+    if (!response) {
+        // Render a loading indicator or return null
+        return (
+            <div style={{ width: "100%", height: "1200px", justifyContent: "center", alignItems: "center",position:"relative" }}>
+                <Loader />
+            </div>
+        )
+    }
 
     const linkStyles = {
         textDecoration: 'none',
@@ -33,8 +41,6 @@ const HomaPage = ({ response }) => {
         const heroProd = heroStuffData.hero_prod;
         const heroprodID = heroProd.productID;
         const heroCategories = heroStuffData.hero_categories;
-        const { hero_cat1: hero_cat1 } = heroCategories;
-        const { hero_cat2: hero_cat2 } = heroCategories;
 
         return (
             <div className="herostuff-container">
@@ -43,7 +49,7 @@ const HomaPage = ({ response }) => {
                         <Link to={`/product/${heroprodID}`} style={linkStyles}>
                             <img
                                 className="background-image"
-                                src={heroProd.image} alt={heroProd.title}
+                                src={heroProd.image[0]} alt={heroProd.title}
                             />
                             <div className="overlay">
                                 <p className="centered-text">{heroProd.title}</p>
@@ -53,25 +59,25 @@ const HomaPage = ({ response }) => {
                     </div>
                 </div>
                 <div className="herostuff-right">
-                    <Link to={`/category/${hero_cat1.title}`} style={linkStyles}>
+                    <Link to={`/category/${heroCategories.hero_cat1.title}`} style={linkStyles}>
                         <div className="image-container-right">
                             <img
                                 className="background-image"
-                                src={hero_cat1.image} alt={hero_cat1.title}
+                                src={heroCategories.hero_cat1.image} alt={heroCategories.hero_cat1.title}
                             />
                             <div className="overlay">
-                                <p className="centered-text">{hero_cat1.title}</p>
+                                <p className="centered-text">{heroCategories.hero_cat1.title}</p>
                             </div>
                         </div>
                     </Link>
-                    <Link to={`/category/${hero_cat2.title}`} style={linkStyles}>
+                    <Link to={`/category/${heroCategories.hero_cat2.title}`} style={linkStyles}>
                         <div className="image-container-right">
                             <img
                                 className="background-image"
-                                src={hero_cat2.image} alt={hero_cat2.title}
+                                src={heroCategories.hero_cat2.image} alt={heroCategories.hero_cat2.title}
                             />
                             <div className="overlay">
-                                <p className="centered-text">{hero_cat2.title}</p>
+                                <p className="centered-text">{heroCategories.hero_cat2.title}</p>
                             </div>
                         </div>
                     </Link>
@@ -105,7 +111,7 @@ const HomaPage = ({ response }) => {
                         {products.map((product, index) => (
                             <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
                                 <Paper key={index} sx={paperStyles}>
-                                    <img src={product.image} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
+                                    <img src={product.image[0]} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
                                     <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
                                     <div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div>
                                     <div style={{ fontSize: '16px' }}>{product.description}</div>
@@ -132,7 +138,7 @@ const HomaPage = ({ response }) => {
         };
 
         return (
-            <div sx={{ marginTop: 4 }}>
+            <div>
                 <Typography variant="h5" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     Shop by Category
                 </Typography>

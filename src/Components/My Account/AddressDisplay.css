@@ -1,0 +1,26 @@
+.address-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+.address-content {
+    flex: 1;
+    padding-right: 10px;
+    margin-top: 20px;
+}
+
+.address-heading{
+    font-weight: bolder;
+}
+
+.edit-button {
+    background-color: transparent;
+    border: none;
+    color: #007BFF; /* This is a common blue color, adjust as needed */
+    cursor: pointer;
+    font-weight: bold;
+}

@@ -32,6 +32,24 @@ body {
   background-color: #F5F0FF; /* Light Navy Blue color */
 }
 
+/* For Firefox */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Chrome, Safari, and Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For IE and Edge */
+input[type="number"]::-ms-clear {
+  display: none;
+}
 
 /* @keyframes App-logo-spin {
   from {

@@ -1,26 +1,33 @@
 import { useState } from "react";
-import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from './Firebase';
+import { ref, set } from "firebase/database";
+import Loader from "./Loader";
 
 //input related material imports
 import { TextField, Typography, Button, IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material"; // Import icons
 import { useNavigate } from "react-router-dom";
 
-//firebase configuration details
-const firebaseConfig = {
-  apiKey: "AIzaSyAYBksSTtveR7M8d0JBF6pVcl-GgNMP0oE",
-  authDomain: "serioustesting-91ba8.firebaseapp.com",
-  databaseURL: "https://serioustesting-91ba8-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "serioustesting-91ba8",
-  storageBucket: "serioustesting-91ba8.appspot.com",
-  messagingSenderId: "838645691893",
-  appId: "1:838645691893:web:b317d5e44a289500345cbc",
-  measurementId: "G-NHZKXHRWMX"
+
+const userObject = {
+  userId: "",
+  cart_objects: [],
+  orders: [],
+  profile: {
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+  },
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+// const cartObject = {
+//   prodId: "",
+//   count: "",
+// };
+
+// const orderedProd = {
 
 const Authentication = () => {
   const [isSignUp, setIsSignUp] = useState(true);
@@ -29,42 +36,81 @@ const Authentication = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  //loader
+  const [isLoading, setIsLoading] = useState(false);
+  const enableLoader = () => {
+    setIsLoading(true);
+  };
+  const disableLoader = () => {
+    setIsLoading(false);
+  };
+
+
   const toggleMode = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
   };
 
   const signUpUser = () => {
+    enableLoader()
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        localStorage.setItem('userId', user.uid);
-        localStorage.setItem('userEmail', user.email);
+
+        const RandomUserObject = {
+          userId: userCredential.user.uid,
+          cart_objects: [],
+          orders: [],
+          profile: {
+            name: "",
+            address: "Thuraipakkam, Chennai-41104, Tamil Nadu,india",
+            email: userCredential.user.email,
+            phone: "",
+          },
+        };
+
+        const newUserObject = { ...userObject, ...RandomUserObject };
+
+        console.log("new user copied", newUserObject);
+
+
+        set(ref(db, 'Users/' + userCredential.user.uid), newUserObject);
+
+        disableLoader()
+
         navigate("/userprofile");
+
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage, errorCode);
+        disableLoader()
       });
   };
 
   const signInUser = () => {
+    enableLoader()
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const user = userCredential.user;
-        localStorage.setItem('userId', user.uid);
-        localStorage.setItem('userEmail', user.email);
+        disableLoader()
         navigate("/userprofile");
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage, errorCode);
+        disableLoader()
       });
+  };
+
+  const restPassword = () => {
+    navigate("/ResetPassword")
   };
 
   return (
     <div style={{ display: "flex", padding: "30px", flexDirection: "column", alignItems: "center" }}>
+      
+      {isLoading && <Loader />}
+
       <Typography style={{ marginTop: "100px", fontSize: "18px" }}>{isSignUp ? "Sign Up" : "Sign In"}</Typography>
 
       <div style={{ display: "flex", flexDirection: "column", marginTop: "20px", alignItems: "center" }}>
@@ -98,6 +144,9 @@ const Authentication = () => {
               </InputAdornment>
             ),
           }} />
+        <div style={{ fontSize: "10px", margin: "4px", cursor: "pointer", textAlign: "end", width: "100%", flexDirection: "column" }} onClick={restPassword}>
+          Forgot Password?
+        </div>
         <Button variant="contained" sx={{ margin: "4px", width: "100%" }} onClick={isSignUp ? signUpUser : signInUser}>
           {isSignUp ? "Sign Up" : "Sign In"}
         </Button>

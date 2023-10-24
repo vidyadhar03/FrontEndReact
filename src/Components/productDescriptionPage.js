@@ -1,10 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './PDP.css';
 import { Button, Typography, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
+import QuantitySelector from "./QuantitySelector";
+import { addToCart } from "./CartHandler";
+import Loader from './Loader';
+
+// import Swiper core and required modules
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 const ProductDescriptionPage = ({ response }) => {
+
+  //loader
+  const [isLoading, setIsLoading] = useState(false);
+  const enableLoader = () => {
+    setIsLoading(true);
+  };
+  const disableLoader = () => {
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { productId } = useParams();
   const products = Object.values(response.Products);
 
@@ -55,56 +82,60 @@ const ProductDescriptionPage = ({ response }) => {
     );
   };
 
-  const QuantitySelector = ({ quantity, onQuantityChange }) => {
-
-    const handleIncrement = () => {
-      onQuantityChange(quantity + 1);
-    };
-
-    const handleDecrement = () => {
-      if (quantity > 1) {
-        onQuantityChange(quantity - 1);
-      }
-    };
-
-    const handleInputChange = (event) => {
-      const newQuantity = parseInt(event.target.value);
-      if (!isNaN(newQuantity)) {
-        onQuantityChange(newQuantity);
-      }
-    };
-
-    return (
-      <div style={{marginBottom:'20px'}}>
-        <button onClick={handleDecrement} style={{width:'30px'}} >-</button>
-        <input type="number" min="1" value={quantity} onChange={handleInputChange} style={{width:'30px'}} />
-        <button onClick={handleIncrement} style={{width:'30px'}}  >+</button>
-      </div>
-    );
-
-  }
+  const handleAddToCart = () => {
+    enableLoader()
+    addToCart(product.productID, quantity, () => {
+      // This callback will be called when the item is added to the cart.
+      // You can disable the loader here.
+      disableLoader();
+    });
+  };
 
   const productContent = () => {
     return (
-      <div className='product-content'>
+      <div>
+        <div className='product-content'>
 
-        <div className='product-img'>
-          <img src={product.image} alt={product.title} style={{ objectFit: "cover" }} />
+          {isLoading && <Loader />}
+
+          <div className='product-img'>
+            {/* <div>
+              <img src={product.image[0]} alt={product.title} style={{ objectFit: "cover" }} />
+            </div> */}
+            <Swiper
+              modules={[Navigation, Pagination, Scrollbar, A11y]}
+              spaceBetween={50}
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+              // scrollbar={{ draggable: true }}
+              // onSwiper={(swiper) => console.log(swiper)}
+              // onSlideChange={() => console.log('slide change')}
+            >
+              {product.image.map((imgSrc, index) => (
+                <SwiperSlide key={index}>
+                  <div style={{display:'flex',justifyContent:"center",alignItems:"center"}}>
+                    <img src={imgSrc} alt={`Product ${index}`} />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          <div className='product-details'>
+
+            <h2>{product.title}</h2>
+            <h3><div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div></h3>
+            <QuantitySelector quantity={quantity} onQuantityChange={handleQuantityChange} productId={product.productID} />
+            <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained' onClick={handleAddToCart}>Add To Cart</Button>
+            {LineWithOr()}
+            <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained'>Buy Now</Button>
+            <div>{product.info}</div>
+
+
+          </div>
+
         </div>
-
-        <div className='product-details'>
-
-          <h2>{product.title}</h2>
-          <h3><div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div></h3>
-          <QuantitySelector quantity={quantity} onQuantityChange={handleQuantityChange} />
-          <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained'>Add To Cart</Button>
-          {LineWithOr()}
-          <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained'>Buy Now</Button>
-          <div>{product.info}</div>
-
-
-        </div>
-
       </div>
     );
   }
@@ -122,7 +153,7 @@ const ProductDescriptionPage = ({ response }) => {
             {samecat_prod.map((product, index) => (
               <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
                 <Paper key={index} sx={paperStyles}>
-                  <img src={product.image} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
+                  <img src={product.image[0]} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
                   <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
                   <div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div>
                   <div style={{ fontSize: '16px' }}>{product.description}</div>

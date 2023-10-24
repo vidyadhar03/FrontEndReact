@@ -1,0 +1,47 @@
+.billing-address-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 20px;
+    width: 60%; /* This defines the width of the form */
+    margin: 0 auto; /* This horizontally centers the form */
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    margin-bottom: 0.5em;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: transparent;
+}
+
+.save-button {
+    padding: 0.5em 1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+}
+
+@media (min-width: 768px) {
+    .billing-address-container {
+        width: 60%;
+    }
+    .save-button {
+        width: 30%;
+    }
+}

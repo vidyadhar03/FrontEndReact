@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { Typography, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -12,12 +12,14 @@ const CategoryWiseProducts = ({ response }) => {
     const { Hero_stuff: heroStuffData } = response;
     const heroProd = heroStuffData.hero_prod;
     const heroCategories = heroStuffData.hero_categories;
-    const { hero_cat1: hero_cat1 } = heroCategories;
-    const { hero_cat2: hero_cat2 } = heroCategories;
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     products.push(heroProd)
-    categories.push(hero_cat1)
-    categories.push(hero_cat2)
+    categories.push(heroCategories.hero_cat1)
+    categories.push(heroCategories.hero_cat2)
 
     var filteredProducts = []
     var otherProducts = []
@@ -64,13 +66,7 @@ const CategoryWiseProducts = ({ response }) => {
                         <Grid item key={index} sx={{ display: 'flex', flexDirection: 'column', flexWrap: 'wrap', flexBasis: '25%', padding: '10px' }}>
                             <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
                                 <Paper sx={paperStyles} style={{ margin: 6, alignItems: "center", textAlign: "center", padding: 2 }}>
-                                    {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                        <img src={product.image} alt={product.title} />
-                                    </div>
-                                    <div style={{ fontSize: '18px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
-                                    <div style={{ marginBottom: '10px' }}>{product.price}</div>
-                                    <div>{product.description}</div> */}
-                                    <img src={product.image} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
+                                    <img src={product.image[0]} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
                                     <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
                                     <div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div>
                                     <div style={{ fontSize: '16px' }}>{product.description}</div>
@@ -124,7 +120,7 @@ const CategoryWiseProducts = ({ response }) => {
                                     <div style={{ fontSize: '18px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
                                     <div style={{ marginBottom: '10px' }}>{product.price}</div>
                                     <div>{product.description}</div> */}
-                                    <img src={product.image} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
+                                    <img src={product.image[0]} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
                                     <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
                                     <div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div>
                                     <div style={{ fontSize: '16px' }}>{product.description}</div>
