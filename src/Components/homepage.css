@@ -134,4 +134,11 @@
     object-fit: cover;
   }
 
+  .centered-text {
+    margin: 10px;
+    color: #fff;
+    font-weight: bolder;
+    font-size: 20px;
+  }
+
 }

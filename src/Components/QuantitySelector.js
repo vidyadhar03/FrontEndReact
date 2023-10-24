@@ -24,9 +24,9 @@ const QuantitySelector = ({ quantity, onQuantityChange,productId }) => {
 
     return (
         <div style={{ marginBottom: '10px' }}>
-            <button onClick={handleDecrement} style={{ width: '30px' }} >-</button>
-            <input type="number" min="1" value={quantity} onChange={handleInputChange} style={{ width: '30px' }} />
-            <button onClick={handleIncrement} style={{ width: '30px' }}  >+</button>
+            <button onClick={handleDecrement} style={{ width: '30px',backgroundColor: "#F5F0FF",border: '1px solid #E0DBE8'}} >-</button>
+            <input type="number" min="1" value={quantity} onChange={handleInputChange} style={{ width: '30px',border: '1px solid #E0DBE8',textAlign:"center" }} />
+            <button onClick={handleIncrement} style={{ width: '30px',backgroundColor: "#F5F0FF",border: '1px solid #E0DBE8' }}  >+</button>
         </div>
     );
 

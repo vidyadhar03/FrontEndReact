@@ -3,13 +3,16 @@ import { Link } from "react-router-dom";
 const Footer = () => {
 
     const footerStyles = {
-        backgroundColor: '#e6eaf0',
+        backgroundColor: '#F5F0FF',
         padding: '20px',
         display: 'flex',
         justifyContent: 'space-around',
         alignItems: 'center',
         flexWrap: 'wrap',
         marginTop:'80px',
+        borderTop:'1px solid #ccc',
+        marginRight:'40px',
+        marginLeft:'40px'
     };
 
     const sectionStyles = {
@@ -18,7 +21,7 @@ const Footer = () => {
     };
 
     const titleStyles = {
-        borderBottom: '1px solid #ccc',
+        // borderBottom: '1px solid #ccc',
         paddingBottom: '5px',
         marginBottom: '10px',
         marginRight: '10px'

@@ -49,7 +49,7 @@ const HomaPage = ({ response }) => {
                         <Link to={`/product/${heroprodID}`} style={linkStyles}>
                             <img
                                 className="background-image"
-                                src={heroProd.image} alt={heroProd.title}
+                                src={heroProd.image[0]} alt={heroProd.title}
                             />
                             <div className="overlay">
                                 <p className="centered-text">{heroProd.title}</p>
@@ -111,7 +111,7 @@ const HomaPage = ({ response }) => {
                         {products.map((product, index) => (
                             <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
                                 <Paper key={index} sx={paperStyles}>
-                                    <img src={product.image} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
+                                    <img src={product.image[0]} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
                                     <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
                                     <div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div>
                                     <div style={{ fontSize: '16px' }}>{product.description}</div>
@@ -138,7 +138,7 @@ const HomaPage = ({ response }) => {
         };
 
         return (
-            <div sx={{ marginTop: 4 }}>
+            <div>
                 <Typography variant="h5" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     Shop by Category
                 </Typography>

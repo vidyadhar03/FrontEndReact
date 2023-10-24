@@ -171,16 +171,18 @@ const CartPage = ({ response }) => {
     return (
         <div className="main-layout">
             {cartObjects.length === 0 ? (
-                <div style={{ marginTop: "100px", display: "flex", flexDirection: "column", textAlign: "center", alignContent: "center" }}>
-                    <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
-                        Your Cart is Empty
-                    </Typography>
-                    <p>Add items to checkout from here!</p>
+                <div>
+                    <div style={{ marginTop: "100px",padding:"20px",display: "flex", flexDirection: "column", textAlign: "center", alignContent: "center" }}>
+                        <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
+                            Your Cart is Empty
+                        </Typography>
+                        <p>Add items to checkout from here!</p>
+                    </div>
                 </div>
             ) : (
                 <>
                     <div className="cart-list" style={{ display: "flex", flexDirection: "column", flex: 1, marginTop: "100px" }}>
-                    {isLoading && <Loader />}
+                        {isLoading && <Loader />}
                         <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                             Your Cart
                         </Typography>
@@ -190,7 +192,7 @@ const CartPage = ({ response }) => {
                                 <Grid item key={index} sx={{ borderBottom: "1px solid #ccc" }}>
                                     <Paper sx={paperStyles}>
                                         <img
-                                            src={product.image}
+                                            src={product.image[0]}
                                             alt={product.title}
                                             style={{ width: "80px", height: "80px", cursor: "pointer" }}
                                             onClick={() => handleItemClick(product.productID)}
@@ -207,7 +209,7 @@ const CartPage = ({ response }) => {
                                                     ₹ {product.price}
                                                 </div>
                                             </div>
-                                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
                                                 <QuantitySelector
                                                     quantity={prodCartCount[index]}
                                                     onQuantityChange={(newQuantity) => handleQuantityChange(product.productID, newQuantity)}
@@ -215,7 +217,9 @@ const CartPage = ({ response }) => {
                                                 />
                                                 <button
                                                     onClick={() => handleRemoveFromCart(product.productID)}
-                                                    style={{ cursor: "pointer", border: "none", background: "transparent", color: "red" }}
+                                                    style={{ cursor: "pointer", border: "none", background: "transparent",
+                                                    textDecoration:"underline",
+                                                     color: "black" , marginLeft:"10px"}}
                                                 >
                                                     Remove
                                                 </button>
@@ -226,7 +230,7 @@ const CartPage = ({ response }) => {
                             ))}
                         </Grid>
                     </div>
-                    <div className="subtotal-section" style={{ flex: 1}}>
+                    <div className="subtotal-section" style={{ flex: 1 }}>
                         <h3>Sub Total : {totalPrice}</h3>
                         <div>delivery charges or any available offers related information will be shown here at this layout</div>
                         <Link to={`/checkout`} style={linkStyles}>
