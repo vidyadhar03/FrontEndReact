@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 
 const CategoryWiseProducts = ({ response }) => {
+    console.log(response)
     const { title } = useParams();
     const products = Object.values(response.Products);
     const categories = Object.values(response.Categories)
@@ -31,15 +32,19 @@ const CategoryWiseProducts = ({ response }) => {
         }
     }
     var banner;
+    var description;
     for (i = 0; i < categories.length; i++) {
-        if (categories[i].title === title) banner = categories[i].banner
+        if (categories[i].title === title) 
+        {
+            banner = categories[i].banner
+            description = categories[i].description
+            break
+        }
     }
 
     const productList = () => {
 
         const paperStyles = {
-            // padding: 2,
-            // margin: 2,
             alignItems: 'center',
             textAlign: 'center',
             boxShadow: '0px 2px 10px rgba(0, 0, 0, 0)',
@@ -59,6 +64,9 @@ const CategoryWiseProducts = ({ response }) => {
 
                 <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     {title}
+                    <div style={{fontSize:"16px",marginTop:"16px",fontFamily:"sans-serif"}}>
+                        {description}
+                    </div>
                 </Typography>
 
                 <Grid container sx={{ justifyContent: 'center' }}>

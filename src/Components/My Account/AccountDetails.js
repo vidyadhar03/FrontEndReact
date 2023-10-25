@@ -4,6 +4,7 @@ import { ref, onValue, update } from "firebase/database";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Typography } from "@mui/material";
+import DialogBox from "../DialogBox";
 import "./AccountDetails.css"
 
 
@@ -15,6 +16,10 @@ const AccountDetails = () => {
     const [name, setname] = useState("");
     const [phone, setphone] = useState("");
     const navigate = useNavigate();
+
+    //dialog
+    const [showDialog, setShowDialog] = useState(false);
+    const [dialogMessage, setDialogMessage] = useState('');
 
 
     const handleSaveChanges = () => {
@@ -30,9 +35,13 @@ const AccountDetails = () => {
             update(userRef, updates)
                 .then(() => {
                     console.log("User profile updated successfully.");
+                    setDialogMessage("Changes saved!");
+                    setShowDialog(true);
                     navigate("/userprofile"); // Redirect to the dashboard or another appropriate page
                 })
                 .catch((error) => {
+                    setDialogMessage("Error saving changes,try again!");
+                    setShowDialog(true);
                     console.error("Error updating user profile:", error);
                 });
         } else {
@@ -116,6 +125,12 @@ const AccountDetails = () => {
             <button className="save-button" onClick={handleSaveChanges}>
                 Save Changes
             </button>
+
+            <DialogBox
+                message={dialogMessage}
+                show={showDialog}
+                onClose={() => setShowDialog(false)}
+            />
 
         </div>
     );

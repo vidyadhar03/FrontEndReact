@@ -5,6 +5,7 @@ import { Button, Typography, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 import QuantitySelector from "./QuantitySelector";
 import { addToCart } from "./CartHandler";
+import DialogBox from './DialogBox';
 import Loader from './Loader';
 
 // import Swiper core and required modules
@@ -27,6 +28,10 @@ const ProductDescriptionPage = ({ response }) => {
   const disableLoader = () => {
     setIsLoading(false);
   };
+
+  //dialog
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState('');
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -87,6 +92,8 @@ const ProductDescriptionPage = ({ response }) => {
     addToCart(product.productID, quantity, () => {
       // This callback will be called when the item is added to the cart.
       // You can disable the loader here.
+      setDialogMessage("Item added to cart!");
+      setShowDialog(true);
       disableLoader();
     });
   };
@@ -108,13 +115,13 @@ const ProductDescriptionPage = ({ response }) => {
               slidesPerView={1}
               navigation
               pagination={{ clickable: true }}
-              // scrollbar={{ draggable: true }}
-              // onSwiper={(swiper) => console.log(swiper)}
-              // onSlideChange={() => console.log('slide change')}
+            // scrollbar={{ draggable: true }}
+            // onSwiper={(swiper) => console.log(swiper)}
+            // onSlideChange={() => console.log('slide change')}
             >
               {product.image.map((imgSrc, index) => (
                 <SwiperSlide key={index}>
-                  <div style={{display:'flex',justifyContent:"center",alignItems:"center"}}>
+                  <div style={{ display: 'flex', justifyContent: "center", alignItems: "center" }}>
                     <img src={imgSrc} alt={`Product ${index}`} />
                   </div>
                 </SwiperSlide>
@@ -171,6 +178,11 @@ const ProductDescriptionPage = ({ response }) => {
     <div>
       {productContent()}
       {suggestedProducts()}
+      <DialogBox
+        message={dialogMessage}
+        show={showDialog}
+        onClose={() => setShowDialog(false)}
+      />
     </div>
   );
 

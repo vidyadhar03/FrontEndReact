@@ -172,7 +172,7 @@ const CartPage = ({ response }) => {
         <div className="main-layout">
             {cartObjects.length === 0 ? (
                 <div>
-                    <div style={{ marginTop: "100px",padding:"20px",display: "flex", flexDirection: "column", textAlign: "center", alignContent: "center" }}>
+                    <div style={{ marginTop: "100px", padding: "20px", display: "flex", flexDirection: "column", textAlign: "center", alignContent: "center" }}>
                         <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                             Your Cart is Empty
                         </Typography>
@@ -209,7 +209,7 @@ const CartPage = ({ response }) => {
                                                     ₹ {product.price}
                                                 </div>
                                             </div>
-                                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
+                                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
                                                 <QuantitySelector
                                                     quantity={prodCartCount[index]}
                                                     onQuantityChange={(newQuantity) => handleQuantityChange(product.productID, newQuantity)}
@@ -217,9 +217,11 @@ const CartPage = ({ response }) => {
                                                 />
                                                 <button
                                                     onClick={() => handleRemoveFromCart(product.productID)}
-                                                    style={{ cursor: "pointer", border: "none", background: "transparent",
-                                                    textDecoration:"underline",
-                                                     color: "black" , marginLeft:"10px"}}
+                                                    style={{
+                                                        cursor: "pointer", border: "none", background: "transparent",
+                                                        textDecoration: "underline",
+                                                        color: "black", marginLeft: "10px"
+                                                    }}
                                                 >
                                                     Remove
                                                 </button>

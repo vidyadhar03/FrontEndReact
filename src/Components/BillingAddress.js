@@ -1,8 +1,9 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { auth, db } from './Firebase';
-import { ref, onValue ,update} from "firebase/database";
+import { ref, onValue, update } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
+import DialogBox from "./DialogBox";
 import "./BillingAddress.css";
 
 const BillingAddress = () => {
@@ -15,7 +16,9 @@ const BillingAddress = () => {
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
-
+    //dialog
+    const [showDialog, setShowDialog] = useState(false);
+    const [dialogMessage, setDialogMessage] = useState('');
 
     useEffect(() => {
 
@@ -37,7 +40,7 @@ const BillingAddress = () => {
                         setState(userData.profile.address.state);
                         setZip(userData.profile.address.pincode);
                     }
-                    
+
                     console.log('User data from db:', userData);
                 } else {
                     console.log('User not found.');
@@ -57,7 +60,7 @@ const BillingAddress = () => {
         if (auth.currentUser && Name !== "" && phone !== "" && address1 !== "" && city !== "" && state !== "" && zip !== "") {
             const userId = auth.currentUser.uid;
             const userRef = ref(db, `Users/${userId}`);
-            
+
             // Create the address object
             const user_address = {
                 add_line1: address1,
@@ -66,37 +69,43 @@ const BillingAddress = () => {
                 state: state,
                 pincode: zip
             };
-            
+
             const updates = {};
-            
+
             if (Name !== "") updates["profile/name"] = Name;
             if (phone !== "") updates["profile/phone"] = phone;
             if (email !== "") updates["profile/email"] = email;
-            
+
             // Update the address in the user's profile
             updates["profile/address"] = user_address;
-    
+
             // Perform the update
             update(userRef, updates)
                 .then(() => {
                     console.log("User profile updated successfully.");
                     // Redirect to the dashboard or another appropriate page
                     // You might want to navigate to "/userprofile" to see the updated details
-                    navigate("/userprofile"); 
+                    setDialogMessage("Adress updated successfully!");
+                    setShowDialog(true);
+                    setTimeout(() => {
+                        navigate("/userprofile");
+                      }, 1000);
                 })
                 .catch((error) => {
                     console.error("Error updating user profile:", error);
+                    setDialogMessage("Adress update failed,try again!");
+                    setShowDialog(true);
                 });
         } else {
             window.alert("Please fill all the mandatory fields.");  // Show default browser alert
             return;
         }
     };
-    
+
 
     return (
         <div className="billing-address-container">
-            <Typography variant="h6" component="h2" align="left" gutterBottom sx={{marginTop:"100px"}}>
+            <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ marginTop: "100px" }}>
                 Billing Address
             </Typography>
 
@@ -137,12 +146,19 @@ const BillingAddress = () => {
 
             <div className="input-group">
                 <label htmlFor="email">Email*</label>
-                <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} readOnly/>
+                <input type="text" id="email" value={email} onChange={(e) => setEmail(e.target.value)} readOnly />
             </div>
 
             <button className="save-button" onClick={handleSaveChanges}>
                 Save Changes
             </button>
+
+            <DialogBox
+                message={dialogMessage}
+                show={showDialog}
+                onClose={() => setShowDialog(false)}
+            />
+
         </div>
     );
 };

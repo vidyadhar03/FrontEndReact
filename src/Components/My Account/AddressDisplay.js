@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import "./AddressDisplay.css";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { auth, db } from '../Firebase';
 import { ref, onValue } from "firebase/database";
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +33,7 @@ const AddressDisplay = () => {
                         setState(userData.profile.address.state);
                         setZip(userData.profile.address.pincode);
                     }
-                    
+
                     console.log('User data from db:', userData);
                 } else {
                     console.log('User not found.');
@@ -49,30 +49,46 @@ const AddressDisplay = () => {
 
     }, []);
 
-    const onEdit = ()=>{
+    const onEdit = () => {
         navigate("/billingdetails")
     }
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div className="main-container" >
             <Typography variant="h6" component="h2" align="left" gutterBottom >
                 Address display component
             </Typography>
-            <div style={{marginTop:"20px"}}>
-               The following addresses will be used on the checkout page by default.
-            </div>
-            <div className="address-container">
-                <div className="address-heading">
-                    BILLING ADDRESS
+            {address1 !== "" ? (
+                <div>
+                    <div style={{ marginTop: "20px" }}>
+                        The following addresses will be used on the checkout page by default.
+                    </div>
+                    <div className="address-container">
+                        <div className="address-heading">
+                            BILLING ADDRESS
+                        </div>
+                        <button className="edit-button" onClick={onEdit}>EDIT</button>
+                    </div>
+                    <div className="address-content">
+                        <div style={{ fontFamily: "italic" }}>{Name}</div>
+                        <div style={{ fontFamily: "italic" }}>{address1 + " " + address2}</div>
+                        <div style={{ fontFamily: "italic" }}>{city + " " + zip}</div>
+                        <div style={{ fontFamily: "italic" }}>{state}</div>
+                    </div>
                 </div>
-                <button className="edit-button" onClick={onEdit}>EDIT</button>
-            </div>
-            <div className="address-content">
-                    <div style={{fontFamily:"italic"}}>{Name}</div>
-                    <div style={{fontFamily:"italic"}}>{address1+" ,"+address2}</div>
-                    <div style={{fontFamily:"italic"}}>{city+" ,"+zip}</div>
-                    <div style={{fontFamily:"italic"}}>{state}</div>
-            </div>
+            ) : (
+                <div>
+                    <div style={{ marginTop: "20px" }}>
+                        No available addresses, please add below.
+                    </div>
+                    <div className="address-container">
+                        <div className="address-heading">
+                            BILLING ADDRESS
+                        </div>
+                        <button className="edit-button" onClick={onEdit}>ADD</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

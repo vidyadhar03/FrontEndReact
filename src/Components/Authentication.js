@@ -3,12 +3,12 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { auth, db } from './Firebase';
 import { ref, set } from "firebase/database";
 import Loader from "./Loader";
+import DialogBox from "./DialogBox";
 
 //input related material imports
 import { TextField, Typography, Button, IconButton, InputAdornment } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material"; // Import icons
 import { useNavigate } from "react-router-dom";
-
 
 const userObject = {
   userId: "",
@@ -21,13 +21,6 @@ const userObject = {
     address: "",
   },
 };
-
-// const cartObject = {
-//   prodId: "",
-//   count: "",
-// };
-
-// const orderedProd = {
 
 const Authentication = () => {
   const [isSignUp, setIsSignUp] = useState(true);
@@ -45,6 +38,10 @@ const Authentication = () => {
     setIsLoading(false);
   };
 
+  //dialog
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState('');
+
 
   const toggleMode = () => {
     setIsSignUp((prevIsSignUp) => !prevIsSignUp);
@@ -61,7 +58,7 @@ const Authentication = () => {
           orders: [],
           profile: {
             name: "",
-            address: "Thuraipakkam, Chennai-41104, Tamil Nadu,india",
+            // address: "Thuraipakkam, Chennai-41104, Tamil Nadu,india",
             email: userCredential.user.email,
             phone: "",
           },
@@ -69,20 +66,23 @@ const Authentication = () => {
 
         const newUserObject = { ...userObject, ...RandomUserObject };
 
-        console.log("new user copied", newUserObject);
-
+        // console.log("new user copied", newUserObject);
 
         set(ref(db, 'Users/' + userCredential.user.uid), newUserObject);
 
+        setDialogMessage('Sign up successfull!');
+        setShowDialog(true);
         disableLoader()
-
-        navigate("/userprofile");
-
+        setTimeout(() => {
+          navigate("/userprofile");
+        }, 500);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage, errorCode);
+        setDialogMessage("Sign Up failed,try again!");
+        setShowDialog(true);
         disableLoader()
       });
   };
@@ -91,13 +91,19 @@ const Authentication = () => {
     enableLoader()
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
+        setDialogMessage('Log In successfull!');
+        setShowDialog(true);
         disableLoader()
-        navigate("/userprofile");
+        setTimeout(() => {
+          navigate("/userprofile");
+        }, 500);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage, errorCode);
+        setDialogMessage("Log In failed,try again!");
+        setShowDialog(true);
         disableLoader()
       });
   };
@@ -144,19 +150,27 @@ const Authentication = () => {
               </InputAdornment>
             ),
           }} />
-        <div style={{ fontSize: "10px", margin: "4px", cursor: "pointer", textAlign: "end", width: "100%", flexDirection: "column" }} onClick={restPassword}>
+        <div style={{ fontSize: "12px", margin: "4px", cursor: "pointer", 
+        textAlign: "end", width: "100%", flexDirection: "column",textDecoration:"underline" }} onClick={restPassword}>
           Forgot Password?
         </div>
         <Button variant="contained" sx={{ margin: "4px", width: "100%" }} onClick={isSignUp ? signUpUser : signInUser}>
           {isSignUp ? "Sign Up" : "Sign In"}
         </Button>
-        <div style={{ fontSize: "12px", marginTop: "4px" }}>
+        <div style={{ fontSize: "14px", marginTop: "4px" }}>
           {isSignUp ? "Already have an account? " : "Don't have an account? "}
           <span style={{ color: "blue", cursor: "pointer" }} onClick={toggleMode}>
             {isSignUp ? "Login" : "Sign Up"}
           </span>
         </div>
       </div>
+
+      <DialogBox 
+        message={dialogMessage} 
+        show={showDialog} 
+        onClose={() => setShowDialog(false)} 
+      />
+
     </div>
   );
 
