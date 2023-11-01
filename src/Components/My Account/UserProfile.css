@@ -23,7 +23,11 @@
 
 .sidebarButton {
   margin-bottom: 10px;
-  padding: 4px;
+  cursor: pointer;
+  border-color: black;
+  border-radius: 4px;
+  background-color: #F5F0FF;
+  color: black;
 }
 
 .contentArea {

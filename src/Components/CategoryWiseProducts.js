@@ -1,23 +1,34 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Typography, Grid, Paper } from "@mui/material";
 import { Link } from "react-router-dom";
+import DataContext from './DataContext';
+import Loader from './Loader';
 
-
-const CategoryWiseProducts = ({ response }) => {
+const CategoryWiseProducts = () => {
+    const response = useContext(DataContext);
     console.log(response)
     const { title } = useParams();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    if (!response) {
+        // Render a loading indicator or return null
+        return (
+            <div style={{ width: "100%", height: "1200px", justifyContent: "center", alignItems: "center", position: "relative" }}>
+                <Loader />
+            </div>
+        )
+    }
+
     const products = Object.values(response.Products);
     const categories = Object.values(response.Categories)
 
     const { Hero_stuff: heroStuffData } = response;
     const heroProd = heroStuffData.hero_prod;
     const heroCategories = heroStuffData.hero_categories;
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
     products.push(heroProd)
     categories.push(heroCategories.hero_cat1)
     categories.push(heroCategories.hero_cat2)
@@ -34,8 +45,7 @@ const CategoryWiseProducts = ({ response }) => {
     var banner;
     var description;
     for (i = 0; i < categories.length; i++) {
-        if (categories[i].title === title) 
-        {
+        if (categories[i].title === title) {
             banner = categories[i].banner
             description = categories[i].description
             break
@@ -64,7 +74,7 @@ const CategoryWiseProducts = ({ response }) => {
 
                 <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     {title}
-                    <div style={{fontSize:"16px",marginTop:"16px",fontFamily:"sans-serif"}}>
+                    <div style={{ fontSize: "16px", marginTop: "16px", fontFamily: "sans-serif" }}>
                         {description}
                     </div>
                 </Typography>

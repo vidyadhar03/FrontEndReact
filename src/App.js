@@ -12,9 +12,9 @@ import UserProfile from './Components/My Account/UserProfile';
 import CheckoutPage from './Components/CheckoutPage';
 import ResetPassword from './Components/ResetPassword';
 import BillingAddress from './Components/BillingAddress';
+import DataContext from './Components/DataContext';
 import { db } from './Components/Firebase';
 import { ref, onValue } from "firebase/database";
-
 
 const App = () => {
 
@@ -27,9 +27,9 @@ const App = () => {
       const data = snapshot.val();
       setResponse(data);
     }
-    , {
-      onlyOnce: true
-    }
+      , {
+        onlyOnce: true
+      }
     );
 
     // Cleaning up the subscription when the component unmounts
@@ -40,27 +40,27 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <div>
-        <ToolbarComponent />
-        <Routes>
-          <Route path="/" element={<HomaPage response={response} />} />
-          <Route path="/product/:productId" element={<ProductDescriptionPage response={response} />} />
-          <Route path="/category/:title" element={<CategoryWiseProducts response={response} />} />
-          <Route path="/cart" element={<CartPage response={response} />} />
-          <Route path="/authentication" element={<Authentication />} />
-          <Route path="/userprofile" element={<UserProfile />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/resetpassword" element={<ResetPassword />} />
-          <Route path="/billingdetails" element={<BillingAddress/>}/>
-        </Routes>
-        {<Footer />}
-      </div>
-    </Router>
+    <DataContext.Provider value={response}>
+      <Router>
+        <div>
+          <ToolbarComponent/>
+          <Routes>
+            <Route path="/" element={<HomaPage response={response} />} />
+            <Route path="/product/:productId" element={<ProductDescriptionPage  />} />
+            <Route path="/category/:title" element={<CategoryWiseProducts/>} />
+            <Route path="/cart" element={<CartPage/>} />
+            <Route path="/authentication" element={<Authentication />} />
+            <Route path="/userprofile" element={<UserProfile />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
+            <Route path="/billingdetails" element={<BillingAddress />} />
+          </Routes>
+          {<Footer />}
+        </div>
+      </Router>
+    </DataContext.Provider>
   );
 
 };
-
-
 
 export default App;

@@ -4,20 +4,16 @@ import "./Cart.css";
 import { db, auth } from "./Firebase";
 import { ref, update, get, onValue } from "firebase/database";
 import { useState, useEffect } from "react";
+import React, { useContext } from 'react';
+import DataContext from './DataContext';
 import QuantitySelector from "./QuantitySelector";
 import Loader from "./Loader";
 
-const CartPage = ({ response }) => {
+const CartPage = () => {
 
+    const response = useContext(DataContext);
     const [cartObjects, setCartObjects] = useState([]);
-    const products = Object.values(response.Products);
-    const { Hero_stuff: heroStuffData } = response;
-    const heroProd = heroStuffData.hero_prod;
-    products.push(heroProd)
     const navigate = useNavigate();
-    var finalProducts = []
-    var prodCartCount = []
-
     //loader
     const [isLoading, setIsLoading] = useState(false);
     const enableLoader = () => {
@@ -28,35 +24,63 @@ const CartPage = ({ response }) => {
     };
 
     useEffect(() => {
-        const user = auth.currentUser;
-
-        if (user) {
-            // User is authenticated, fetch cart objects from DB
-            const userRef = ref(db, 'Users/' + user.uid);
-            const unsubscribe = onValue(userRef, (snapshot) => {
-                const userData = snapshot.val();
-                if (userData) {
-                    const cartObjectss = userData.cart_objects || [];
-                    setCartObjects(cartObjectss);
-                    console.log('User Cart Objects:', cartObjectss);
-                } else {
-                    console.log('User not found.');
-                }
-            }, {
-                onlyOnce: true
-            });
-
-            return () => {
-                unsubscribe();
-            };
-        } else {
-            // User is not authenticated, fetch cart objects from local storage
-            const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
-            console.log("printing debug", storedCart)
-            setCartObjects(storedCart);
-        }
-
+        // This will hold the unsubscribe function for Firebase's onAuthStateChanged
+        let authUnsubscribe;
+    
+        // This will hold the unsubscribe function for Firebase's onValue
+        let dbUnsubscribe;
+    
+        authUnsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+                // User is authenticated, fetch cart objects from DB
+                const userRef = ref(db, 'Users/' + user.uid);
+                dbUnsubscribe = onValue(userRef, (snapshot) => {
+                    const userData = snapshot.val();
+                    if (userData) {
+                        const cartObjectss = userData.cart_objects || [];
+                        setCartObjects(cartObjectss);
+                        console.log('User Cart Objects:', cartObjectss);
+                    } else {
+                        console.log('User not found.');
+                    }
+                }, {
+                    onlyOnce: true
+                });
+            } else {
+                // User is not authenticated, fetch cart objects from local storage
+                const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
+                console.log("printing debug", storedCart);
+                setCartObjects(storedCart);
+            }
+        });
+    
+        return () => {
+            // Cleanup listeners when the component is unmounted
+            if (authUnsubscribe) authUnsubscribe();
+            if (dbUnsubscribe) dbUnsubscribe();
+        };
     }, []);
+    
+
+
+    console.log(response)
+
+    if (!response) {
+        // Render a loading indicator or return null
+        return (
+            <div style={{ width: "100%", height: "1200px", justifyContent: "center", alignItems: "center", position: "relative" }}>
+                <Loader />
+            </div>
+        )
+    }
+
+    const products = Object.values(response.Products);
+    const { Hero_stuff: heroStuffData } = response;
+    const heroProd = heroStuffData.hero_prod;
+    products.push(heroProd)
+
+    var finalProducts = []
+    var prodCartCount = []
 
     var totalPrice = parseInt(0)
     for (const mproduct in products) {

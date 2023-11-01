@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import './PDP.css';
 import { Button, Typography, Grid, Paper } from "@mui/material";
-import { Link } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import QuantitySelector from "./QuantitySelector";
 import { addToCart } from "./CartHandler";
 import DialogBox from './DialogBox';
+import DataContext from './DataContext';
 import Loader from './Loader';
 
 // import Swiper core and required modules
@@ -18,8 +19,12 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
-const ProductDescriptionPage = ({ response }) => {
+const ProductDescriptionPage = () => {
 
+  const response = useContext(DataContext);
+  const { productId } = useParams();
+  const [quantity, setQuantity] = useState(1);
+  const navigate = useNavigate();
   //loader
   const [isLoading, setIsLoading] = useState(false);
   const enableLoader = () => {
@@ -37,7 +42,16 @@ const ProductDescriptionPage = ({ response }) => {
     window.scrollTo(0, 0);
   }, []);
 
-  const { productId } = useParams();
+  if (!response) {
+    // Render a loading indicator or return null
+    return (
+      <div style={{ width: "100%", height: "1200px", justifyContent: "center", alignItems: "center", position: "relative" }}>
+        <Loader />
+      </div>
+    )
+  }
+
+
   const products = Object.values(response.Products);
 
   const { Hero_stuff: heroStuffData } = response;
@@ -45,8 +59,6 @@ const ProductDescriptionPage = ({ response }) => {
   products.push(heroProd)
 
   var product = products.find((product) => product.productID === productId);
-
-  const [quantity, setQuantity] = useState(1);
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
@@ -70,13 +82,7 @@ const ProductDescriptionPage = ({ response }) => {
     boxShadow: '0px 2px 10px rgba(0, 0, 0, 0)',
     backgroundColor: '#F5F0FF',
   };
-
-  const linkStyles = {
-    textDecoration: 'none',
-    color: 'inherit',
-    outline: 'none',
-  };
-
+  
   const LineWithOr = () => {
     return (
       <div className="line-with-or-container">
@@ -97,6 +103,11 @@ const ProductDescriptionPage = ({ response }) => {
       disableLoader();
     });
   };
+
+  const pdpnavigate = (productId) => {
+    navigate(`/product/${productId}`);
+    window.scrollTo(0, 0); 
+  }
 
   const productContent = () => {
     return (
@@ -158,14 +169,14 @@ const ProductDescriptionPage = ({ response }) => {
         <Grid container sx={{ overflowX: 'scroll' }}>
           <Grid item sx={{ display: 'flex', flexWrap: 'nowrap' }}>
             {samecat_prod.map((product, index) => (
-              <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>
-                <Paper key={index} sx={paperStyles}>
+              <Paper key={index} sx={paperStyles} >
+                <div onClick={() => pdpnavigate(product.productID)}>
                   <img src={product.image[0]} alt={product.title} style={{ width: '300px', height: '300px', objectFit: 'cover' }} />
                   <div style={{ fontSize: '20px', fontWeight: 'bold', margin: '10px 0' }}>{product.title}</div>
                   <div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div>
                   <div style={{ fontSize: '16px' }}>{product.description}</div>
-                </Paper>
-              </Link>
+                </div>
+              </Paper>
             ))}
           </Grid>
         </Grid>

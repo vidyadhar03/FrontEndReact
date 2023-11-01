@@ -1,6 +1,3 @@
-// import { AppBar, Toolbar, IconButton, Typography, Container } from '@mui/material';
-import { IconButton } from '@mui/material';
-import { ShoppingCart, AccountCircle } from '@mui/icons-material';
 import { Link,useNavigate } from 'react-router-dom';
 import { auth } from './Firebase';
 
@@ -29,18 +26,14 @@ const ToolbarComponent = () => {
                     {/* <Typography variant="h6" component="div">
                         Trippy Tree
                     </Typography> */}
-                    <img src="logo192.png" alt="Trippy Tree" style={{ width: '100%', height: '70px', objectFit: 'cover' }} />
+                    <img src="/websitelogo1.png" alt="Trippy Tree" style={{ width:"auto", height: '70px', objectFit: 'cover' }} />
                 </Link>
             </div>
-            <div style={{ alignItems: 'center', display: 'flex', margin: '10px' }}>
+            <div style={{ alignItems: 'center', display: 'flex',flexDirection:"row", margin: '10px',justifyContent:"center",alignContent:"center" }}>
                 <Link to={'/cart'} style={linkStyles}>
-                    <IconButton color="white">
-                        <ShoppingCart />
-                    </IconButton>
+                <img src="/shoppingcirclelogo.png" alt="Trippy Tree" style={{ marginTop:"2px",cursor:"pointer",width:"32px", height: '32px', objectFit: 'cover' }} />
                 </Link>
-                <IconButton color="white" onClick={handleAuth}>
-                    <AccountCircle />
-                </IconButton>
+                <img src="/accountcirclelogo.png" alt="Trippy Tree" style={{ cursor:"pointer",width:"36px", height: '36px', objectFit: 'cover' }} onClick={handleAuth} />
             </div>
         </div>
     );
