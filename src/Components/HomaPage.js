@@ -106,7 +106,7 @@ const HomaPage = ({ response }) => {
                 <Typography variant="h5" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     Explore our famous products
                 </Typography>
-                <Grid container sx={{ overflowX: 'scroll' }}>
+                <Grid container sx={{ overflowX: 'scroll', '&::-webkit-scrollbar': { display: 'none' }, scrollbarWidth: 'none' }}>
                     <Grid item sx={{ display: 'flex', flexWrap: 'nowrap' }}>
                         {products.map((product, index) => (
                             <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>

@@ -129,7 +129,7 @@ const CategoryWiseProducts = () => {
                 <Typography variant="h6" component="h2" align="left" gutterBottom sx={{ margin: 2 }}>
                     Other Products
                 </Typography>
-                <Grid container sx={{ overflowX: 'scroll' }}>
+                <Grid container sx={{ overflowX: 'scroll', '&::-webkit-scrollbar': { display: 'none' }, scrollbarWidth: 'none' }}>
                     <Grid item sx={{ display: 'flex', flexWrap: 'nowrap' }}>
                         {otherProducts.map((product, index) => (
                             <Link to={`/product/${product.productID}`} key={index} style={linkStyles}>

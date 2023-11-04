@@ -166,7 +166,7 @@ const ProductDescriptionPage = () => {
           Suggested products
         </Typography>
 
-        <Grid container sx={{ overflowX: 'scroll' }}>
+        <Grid container sx={{ overflowX: 'scroll', '&::-webkit-scrollbar': { display: 'none' }, scrollbarWidth: 'none' }}>
           <Grid item sx={{ display: 'flex', flexWrap: 'nowrap' }}>
             {samecat_prod.map((product, index) => (
               <Paper key={index} sx={paperStyles} >
