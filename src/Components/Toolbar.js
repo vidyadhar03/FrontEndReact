@@ -31,7 +31,7 @@ const ToolbarComponent = () => {
             </div>
             <div style={{ alignItems: 'center', display: 'flex',flexDirection:"row", margin: '10px',justifyContent:"center",alignContent:"center" }}>
                 <Link to={'/cart'} style={linkStyles}>
-                <img src="/shoppingcirclelogo.png" alt="Trippy Tree" style={{ marginTop:"2px",cursor:"pointer",width:"32px", height: '32px', objectFit: 'cover' }} />
+                <img src="/shoppingcirclelogo.png" alt="Trippy Tree" style={{ marginTop:"6px",cursor:"pointer",width:"32px", height: '32px', objectFit: 'cover' }} />
                 </Link>
                 <img src="/accountcirclelogo.png" alt="Trippy Tree" style={{ cursor:"pointer",width:"36px", height: '36px', objectFit: 'cover' }} onClick={handleAuth} />
             </div>

@@ -56,28 +56,37 @@ const AccountDetails = () => {
 
     useEffect(() => {
 
-        if (auth.currentUser) {
-            //getting user data from DB
-            const userRef = ref(db, 'Users/' + auth.currentUser.uid);
-            setemail(auth.currentUser.email)
+        // This will hold the unsubscribe function for Firebase's onAuthStateChanged
+        let authUnsubscribe;
 
-            const unsubscribe = onValue(userRef, (snapshot) => {
-                const userData = snapshot.val();
-                if (userData) {
-                    setname(userData.profile.name)
-                    setphone(userData.profile.phone)
-                    console.log('User data from db:', userData);
-                } else {
-                    console.log('User not found.');
-                }
-            }, {
-                onlyOnce: true
-            });
+        // This will hold the unsubscribe function for Firebase's onValue
+        let dbUnsubscribe;
 
-            return () => {
-                unsubscribe();
+        authUnsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+                setemail(user.email)
+                // User is authenticated, fetch cart objects from DB
+                const userRef = ref(db, 'Users/' + user.uid);
+                dbUnsubscribe = onValue(userRef, (snapshot) => {
+                    const userData = snapshot.val();
+                    if (userData) {
+                        setname(userData.profile.name)
+                        setphone(userData.profile.phone)
+                        console.log('User data from db:', userData);
+                    } else {
+                        console.log('User not found.');
+                    }
+                }, {
+                    onlyOnce: true
+                });
             }
-        }
+        });
+
+        return () => {
+            // Cleanup listeners when the component is unmounted
+            if (authUnsubscribe) authUnsubscribe();
+            if (dbUnsubscribe) dbUnsubscribe();
+        };
 
     }, []);
 

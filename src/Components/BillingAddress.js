@@ -22,37 +22,78 @@ const BillingAddress = () => {
 
     useEffect(() => {
 
-        if (auth.currentUser) {
-            //getting user data from DB
-            const userRef = ref(db, 'Users/' + auth.currentUser.uid);
-            setEmail(auth.currentUser.email)
+        // if (auth.currentUser) {
+        //     //getting user data from DB
+        //     const userRef = ref(db, 'Users/' + auth.currentUser.uid);
+        //     setEmail(auth.currentUser.email)
 
-            const unsubscribe = onValue(userRef, (snapshot) => {
-                const userData = snapshot.val();
-                if (userData) {
-                    setName(userData.profile.name)
-                    setPhone(userData.profile.phone)
+        //     const unsubscribe = onValue(userRef, (snapshot) => {
+        //         const userData = snapshot.val();
+        //         if (userData) {
+        //             setName(userData.profile.name)
+        //             setPhone(userData.profile.phone)
 
-                    if (userData.profile.address) {
-                        setAddress1(userData.profile.address.add_line1);
-                        setAddress2(userData.profile.address.add_line2 || "");  // Default to empty string if not present
-                        setCity(userData.profile.address.city);
-                        setState(userData.profile.address.state);
-                        setZip(userData.profile.address.pincode);
+        //             if (userData.profile.address) {
+        //                 setAddress1(userData.profile.address.add_line1);
+        //                 setAddress2(userData.profile.address.add_line2 || "");  // Default to empty string if not present
+        //                 setCity(userData.profile.address.city);
+        //                 setState(userData.profile.address.state);
+        //                 setZip(userData.profile.address.pincode);
+        //             }
+
+        //             console.log('User data from db:', userData);
+        //         } else {
+        //             console.log('User not found.');
+        //         }
+        //     }, {
+        //         onlyOnce: true
+        //     });
+
+        //     return () => {
+        //         unsubscribe();
+        //     }
+        // }
+
+        // This will hold the unsubscribe function for Firebase's onAuthStateChanged
+        let authUnsubscribe;
+
+        // This will hold the unsubscribe function for Firebase's onValue
+        let dbUnsubscribe;
+
+        authUnsubscribe = auth.onAuthStateChanged(user => {
+            if (user) {
+                setEmail(user.email)
+                // User is authenticated, fetch cart objects from DB
+                const userRef = ref(db, 'Users/' + user.uid);
+                dbUnsubscribe = onValue(userRef, (snapshot) => {
+                    const userData = snapshot.val();
+                    if (userData) {
+                        setName(userData.profile.name)
+                        setPhone(userData.profile.phone)
+
+                        if (userData.profile.address) {
+                            setAddress1(userData.profile.address.add_line1);
+                            setAddress2(userData.profile.address.add_line2 || "");  // Default to empty string if not present
+                            setCity(userData.profile.address.city);
+                            setState(userData.profile.address.state);
+                            setZip(userData.profile.address.pincode);
+                        }
+
+                        console.log('User data from db:', userData);
+                    } else {
+                        console.log('User not found.');
                     }
-
-                    console.log('User data from db:', userData);
-                } else {
-                    console.log('User not found.');
-                }
-            }, {
-                onlyOnce: true
-            });
-
-            return () => {
-                unsubscribe();
+                }, {
+                    onlyOnce: true
+                });
             }
-        }
+        });
+
+        return () => {
+            // Cleanup listeners when the component is unmounted
+            if (authUnsubscribe) authUnsubscribe();
+            if (dbUnsubscribe) dbUnsubscribe();
+        };
 
     }, []);
 
@@ -89,7 +130,7 @@ const BillingAddress = () => {
                     setShowDialog(true);
                     setTimeout(() => {
                         navigate("/userprofile");
-                      }, 1000);
+                    }, 1000);
                 })
                 .catch((error) => {
                     console.error("Error updating user profile:", error);

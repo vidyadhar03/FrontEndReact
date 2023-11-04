@@ -29,7 +29,7 @@ const CartPage = () => {
     
         // This will hold the unsubscribe function for Firebase's onValue
         let dbUnsubscribe;
-    
+        
         authUnsubscribe = auth.onAuthStateChanged(user => {
             if (user) {
                 // User is authenticated, fetch cart objects from DB

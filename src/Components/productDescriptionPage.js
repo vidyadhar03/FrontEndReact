@@ -142,8 +142,8 @@ const ProductDescriptionPage = () => {
 
           <div className='product-details'>
 
-            <h2>{product.title}</h2>
-            <h3><div style={{ marginBottom: '10px', color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div></h3>
+            <h3>{product.title}</h3>
+            <div style={{ marginBottom:"6px",color: 'grey', fontWeight: 'bold' }}>₹ {product.price}</div>
             <QuantitySelector quantity={quantity} onQuantityChange={handleQuantityChange} productId={product.productID} />
             <Button sx={{ color: 'white', marginBottom: '10px' }} variant='contained' onClick={handleAddToCart}>Add To Cart</Button>
             {LineWithOr()}

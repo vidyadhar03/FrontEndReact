@@ -1,0 +1,81 @@
+.footer {
+    background-color: #F5F0FF;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 80px;
+    border-top: 1px solid #ccc;
+    margin-right: 40px;
+    margin-left: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 150px;
+    margin-right: 10px;
+}
+
+.social-links {
+    max-width: 300px;
+}
+
+.social-links h3,
+.footer-section h3 {
+    margin-bottom: 10px;
+}
+
+/* .social-links .app-link,
+.social-links .social-icons a, */
+.footer-section a {
+    display: block;
+    margin-bottom: 5px;
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer-brand {
+    flex: 1;
+    text-align: left;
+    margin-right: 10px;
+}
+
+.brand-logo {
+    width: 6em; /* or the width you want */
+    height: 6em; /* keeps the aspect ratio */
+    display: block; /* changes the default inline display to block */
+    margin: 0 auto 10px; /* centers the logo and adds space below */
+}
+
+.payment-options span {
+    /* Add payment icons styles here */
+}
+
+.icon-container{
+    display: flex;
+    flex-direction: row;
+}
+
+/* Add responsive styles if needed */
+@media (max-width: 768px) {
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-section,
+    .footer-brand {
+        text-align: center;
+    }
+    
+    .brand-logo {
+        margin-bottom: 15px;
+    }
+
+    .icon-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}

@@ -26,10 +26,10 @@ const HomaPage = ({ response }) => {
             <div className="banner-container">
                 <img
                     className="background-image"
-                    src={banner.imageURL} alt={'Trippy Tree'}
+                    src="/trippytreebanner.png" alt="Trippy Tree Banner"
                 />
-                <div className="overlay">
-                    <p className="centered-text">{banner.description}</p>
+                <div className="overlay" >
+                    <p className="centered-text" style={{padding:"0.25em",backgroundColor:"grey",borderRadius:"16px"}}>{banner.description}</p>
                 </div>
             </div>
         );
@@ -53,7 +53,7 @@ const HomaPage = ({ response }) => {
                             />
                             <div className="overlay">
                                 <p className="centered-text">{heroProd.title}</p>
-                                <button className="centered-button">Shop Now</button>
+                                <button className="centered-button">SHOP NOW</button>
                             </div>
                         </Link>
                     </div>
@@ -148,9 +148,9 @@ const HomaPage = ({ response }) => {
                             <Link to={`/category/${category.title}`} key={index} style={linkStyles}>
                                 <Paper sx={paperStyles} style={{ margin: 6, alignItems: "center", textAlign: "center", padding: 2 }}>
                                     <img src={category.image} alt={category.title} className="shop-category-img" />
-                                    <Typography variant="subtitle1" component="div" style={{ marginTop: 8, fontSize: '14px', fontWeight: 'normal' }}>
+                                    <div style={{ marginTop: 8, fontSize: '14px', fontWeight: 'normal' }}>
                                         {category.title}
-                                    </Typography>
+                                    </div>
                                 </Paper>
                             </Link>
                         </Grid>
